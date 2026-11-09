@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plural Price Shop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: a store shelf — sticky aisle tabs on top, items as shelf cards wearing yellow price tags, detail opens as a sheet. */
+:root {
+  --bg: #EAF2EF;
+  --surface: #FFFFFF;
+  --surface-2: #F4F8F6;
+  --line: #CFDDD8;
+  --ink: #12302B;
+  --muted: #56706A;
+  --accent: #0F7B6C;
+  --accent-ink: #FFFFFF;
+  --tag: #FFD84D;
+  --tag-ink: #3A2E00;
+  --pair: #2457B8;
+  --pair-bg: #E3ECFB;
+  --always: #B23C0B;
+  --always-bg: #FCE9DF;
+  --good: #16794A;
+  --good-bg: #DDF3E7;
+  --bad: #B42318;
+  --bad-bg: #FDE4E1;
+  --shadow: 0 1px 2px rgba(18,48,43,.06), 0 6px 18px rgba(18,48,43,.07);
+  --f-display: "Jua", "Noto Sans KR", system-ui, sans-serif;
+  --f-body: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1917; --surface: #162522; --surface-2: #1C2E2A; --line: #2B423D;
+    --ink: #E5F0ED; --muted: #98AEA8; --accent: #4CCFB6; --accent-ink: #062520;
+    --tag: #F2C935; --tag-ink: #2A2100;
+    --pair: #8DB2F7; --pair-bg: #1D2C48; --always: #F7A274; --always-bg: #3A2418;
+    --good: #6FD9A0; --good-bg: #173527; --bad: #FF9C92; --bad-bg: #3D1C19;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1917; --surface: #162522; --surface-2: #1C2E2A; --line: #2B423D;
+  --ink: #E5F0ED; --muted: #98AEA8; --accent: #4CCFB6; --accent-ink: #062520;
+  --tag: #F2C935; --tag-ink: #2A2100;
+  --pair: #8DB2F7; --pair-bg: #1D2C48; --always: #F7A274; --always-bg: #3A2418;
+  --good: #6FD9A0; --good-bg: #173527; --bad: #FF9C92; --bad-bg: #3D1C19;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface);
+}
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1.2; text-wrap: balance; margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* header */
+header.top { background: var(--surface); border-bottom: 1px solid var(--line); }
+header.top .wrap { padding-block: 22px 18px; display: grid; gap: 6px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+h1 { font-size: clamp(28px, 5vw, 40px); }
+h1 .blank { display: inline-block; min-width: 3.2em; border-bottom: 3px solid var(--tag); color: var(--accent); }
+.lede { margin: 0; color: var(--muted); max-width: 62ch; }
+
+nav.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+nav.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav.tabs a {
+  flex: none; text-decoration: none; color: var(--muted);
+  padding: 12px 14px; font-weight: 700; font-size: 14px;
+  border-bottom: 3px solid transparent;
+}
+nav.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+main .wrap { padding-block: 22px 56px; }
+section.view { display: grid; gap: 18px; }
+
+/* filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.chipgroup { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chipgroup > span { font-size: 12px; color: var(--muted); font-weight: 700; margin-right: 2px; }
+.chip {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
+  padding: 5px 12px; font-size: 13px; font-weight: 500;
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.count { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+/* item grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.card {
+  position: relative; text-align: left; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 14px; padding: 16px 14px 14px;
+  display: grid; gap: 8px; align-content: start; box-shadow: var(--shadow);
+  transition: transform .15s ease;
+}
+.card:hover { transform: translateY(-2px); }
+.card .emo { font-size: 44px; line-height: 1; }
+.card .en { font-family: var(--f-display); font-size: 22px; line-height: 1.15; }
+.card .ko { font-size: 13px; color: var(--muted); margin-top: -4px; }
+.card .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.card .stores { font-size: 12px; color: var(--muted); }
+
+.kind { font-size: 11px; font-weight: 700; border-radius: 6px; padding: 2px 7px; letter-spacing: .02em; }
+.kind.pair { background: var(--pair-bg); color: var(--pair); }
+.kind.always { background: var(--always-bg); color: var(--always); }
+
+/* price tag */
+.tag {
+  position: absolute; top: 12px; right: -6px;
+  background: var(--tag); color: var(--tag-ink);
+  font-family: var(--f-mono); font-weight: 600; font-size: 13px;
+  padding: 4px 10px 4px 18px; border-radius: 4px 0 0 4px;
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+  font-variant-numeric: tabular-nums;
+}
+.tag::before {
+  content: ""; position: absolute; left: 7px; top: 50%; width: 5px; height: 5px;
+  margin-top: -2.5px; border-radius: 50%; background: var(--surface);
+}
+.tag.big { position: static; font-size: 20px; padding: 6px 16px 6px 26px; clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%); display: inline-block; }
+.tag.big::before { left: 10px; width: 7px; height: 7px; margin-top: -3.5px; }
+
+/* panel / note */
+.note {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 16px 18px; display: grid; gap: 8px;
+}
+.note h2 { font-size: 22px; }
+.note p { margin: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; }
+.legend div { display: flex; gap: 8px; align-items: baseline; }
+
+/* detail sheet */
+dialog {
+  border: none; padding: 0; border-radius: 18px; background: var(--surface); color: var(--ink);
+  width: min(640px, calc(100vw - 24px)); max-height: calc(100dvh - 32px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+dialog::backdrop { background: rgba(8,20,18,.55); }
+.sheet { display: grid; gap: 16px; padding: 22px; }
+.sheet-head { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; }
+.sheet-head .emo { font-size: 64px; line-height: 1; }
+.sheet-head h2 { font-size: 32px; }
+.sheet-head .ko { color: var(--muted); }
+.x { border: 1px solid var(--line); background: var(--surface-2); border-radius: 50%; width: 36px; height: 36px; font-size: 18px; line-height: 1; align-self: start; }
+.block { display: grid; gap: 6px; }
+.block h3 { font-family: var(--f-body); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.feat { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.feat li { display: grid; gap: 0; }
+.feat .e { font-weight: 500; }
+.feat .k { font-size: 13px; color: var(--muted); }
+.where { width: 100%; border-collapse: collapse; font-size: 14px; }
+.where td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.where td:first-child { font-weight: 700; width: 38%; padding-right: 10px; }
+.where td.p { font-family: var(--f-mono); font-size: 13px; text-align: right; white-space: nowrap; padding-left: 10px; font-variant-numeric: tabular-nums; }
+.where .sub { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+
+.dialog-box { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; display: grid; gap: 10px; }
+.line { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; }
+.who { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--accent); color: var(--accent-ink); }
+.who.b { background: var(--tag); color: var(--tag-ink); }
+.say { font-size: 17px; font-weight: 500; }
+.say b { color: var(--accent); }
+.say small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.speak { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 10px; font-size: 13px; }
+.tip { font-size: 14px; background: var(--always-bg); color: var(--ink); border-radius: 10px; padding: 10px 12px; }
+.tip.pairtip { background: var(--pair-bg); }
+
+/* practice */
+.quiz { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: grid; gap: 16px; max-width: 720px; box-shadow: var(--shadow); }
+.quiz-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); font-weight: 700; }
+.bar { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); transition: width .3s ease; }
+.prompt { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+.prompt .emo { font-size: 72px; line-height: 1; }
+.prompt .q { font-family: var(--f-display); font-size: 22px; }
+.prompt .ko { color: var(--muted); font-size: 14px; }
+.opts { display: grid; gap: 8px; }
+.opt { text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: 12px; padding: 12px 14px; font-size: 17px; font-weight: 500; }
+.opt:hover:not(:disabled) { border-color: var(--accent); }
+.opt.right { border-color: var(--good); background: var(--good-bg); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.opt:disabled { cursor: default; }
+.feedback { font-size: 15px; min-height: 1.6em; }
+.feedback.ok { color: var(--good); font-weight: 700; }
+.feedback.no { color: var(--bad); font-weight: 700; }
+.btn { border: none; background: var(--accent); color: var(--accent-ink); border-radius: 12px; padding: 11px 18px; font-weight: 700; }
+.btn.ghost { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.result { text-align: center; display: grid; gap: 10px; justify-items: center; padding-block: 10px; }
+.result .score { font-family: var(--f-display); font-size: 56px; color: var(--accent); }
+
+/* role play */
+.rp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 860px; }
+.rp-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 12px; align-content: start; box-shadow: var(--shadow); }
+.rp-card .role { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.rp-card .emo { font-size: 80px; line-height: 1; }
+.rp-card .big { font-family: var(--f-display); font-size: 28px; }
+.frame { font-size: 18px; font-weight: 500; }
+.frame u { text-decoration: none; border-bottom: 2px dashed var(--accent); padding: 0 4px; }
+.hidden-price { border: 2px dashed var(--line); border-radius: 10px; padding: 14px; text-align: center; color: var(--muted); }
+
+/* review table */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+table.review { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+table.review th, table.review td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.review th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+table.review tr:last-child td { border-bottom: none; }
+.st { font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
+.st.keep { background: var(--good-bg); color: var(--good); }
+.st.out { background: var(--bad-bg); color: var(--bad); }
+.st.new { background: var(--pair-bg); color: var(--pair); }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+
+footer { color: var(--muted); font-size: 13px; }
+
+@media (max-width: 640px) {
+  .rp, .two { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .card .emo { font-size: 36px; }
+  .card .en { font-size: 19px; }
+  .sheet { padding: 18px; }
+  .sheet-head .emo { font-size: 48px; }
+  .sheet-head h2 { font-size: 26px; }
+  .prompt .emo { font-size: 56px; }
+  .count { margin-left: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Korea Shopping English · 복수형 물건 가게</div>
+    <h1>How much are the <span class="blank" id="heroWord">socks</span>?</h1>
+    <p class="lede">한국의 다이소, 편의점, 올리브영, 옷가게에서 살 수 있는 <b>항상 복수형으로 쓰는 물건 20가지</b>를 모았어요. 물건을 눌러 가격, 특징, 살 수 있는 곳을 확인하고 <i>They're ___ won.</i>으로 대답해 보세요.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="메뉴">
+  <div class="wrap">
+    <a href="#shop" data-view="shop">🛒 물건 보기</a>
+    <a href="#quiz" data-view="quiz">✏️ 문장 연습</a>
+    <a href="#roleplay" data-view="roleplay">🗣️ 짝 활동</a>
+    <a href="#review" data-view="review">🔍 물건 점검표</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <!-- SHOP -->
+    <section class="view" id="view-shop">
+      <div class="note">
+        <div class="legend">
+          <div><span class="kind always">항상 복수</span><span>단수형을 쓰지 않아요. <i>glasses, scissors, jeans</i></span></div>
+          <div><span class="kind pair">짝(pair)</span><span>두 개가 한 쌍이라 복수형으로 말해요. <i>socks, chopsticks</i></span></div>
+        </div>
+      </div>
+      <div class="filters">
+        <div class="chipgroup" id="storeFilter" role="group" aria-label="가게"><span>어디서?</span></div>
+        <div class="chipgroup" id="kindFilter" role="group" aria-label="종류"><span>종류</span></div>
+        <div class="count" id="count"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 노란 가격표는 말하기 연습용 대표 가격입니다.</footer>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="view" id="view-quiz" hidden>
+      <div class="quiz" id="quiz"></div>
+    </section>
+
+    <!-- ROLE PLAY -->
+    <section class="view" id="view-roleplay" hidden>
+      <div class="note">
+        <h2>짝 활동: 가게 놀이</h2>
+        <p><b>A(손님)</b>는 물건을 보고 묻고, <b>B(점원)</b>는 가격표를 보고 대답해요. 한 번 하면 역할을 바꿔요.</p>
+      </div>
+      <div class="rp" id="rp"></div>
+      <div class="row">
+        <button class="btn" id="rpNext" type="button">다음 물건 ▶</button>
+        <button class="btn ghost" id="rpSpeak" type="button">🔊 대화 듣기</button>
+      </div>
+    </section>
+
+    <!-- REVIEW -->
+    <section class="view" id="view-review" hidden>
+      <div class="note">
+        <h2>물건 다시 점검하기</h2>
+        <p>처음 목록 20개 중에서 <b>How much are the ___? They're ___.</b> 활동에 꼭 맞는 물건만 남겼어요. 기준은 두 가지예요.</p>
+        <p>① 영어에서 <b>늘 복수형으로 쓰는 말</b>인가? (glasses, scissors처럼 단수형이 없음)<br>② <b>두 개가 한 쌍</b>이라 보통 복수형으로 사고파는 물건인가? (socks, chopsticks)</p>
+        <p>컵라면, 마스크팩, 건전지처럼 한 개씩도 사는 물건은 <i>How much is the sheet mask?</i>처럼 단수로 묻는 게 더 자연스러워서 뺐어요.</p>
+      </div>
+      <div class="tbl-wrap"><table class="review" id="reviewTable"></table></div>
+      <div class="two">
+        <div class="note">
+          <h2>문장 규칙</h2>
+          <p>❌ How much <b>is</b> the glasses?<br>✅ How much <b>are</b> the glasses? — <b>They're</b> 5,000 won.</p>
+          <p>❌ a glass / a scissor<br>✅ <b>a pair of</b> glasses / <b>a pair of</b> scissors</p>
+          <p>두 쌍 이상이면 <b>pairs</b>: two pairs of socks</p>
+        </div>
+        <div class="note">
+          <h2>가격 읽기</h2>
+          <p>1,000 → one thousand won<br>2,500 → two thousand five hundred won<br>15,000 → fifteen thousand won<br>39,000 → thirty-nine thousand won</p>
+          <p>‘원’은 영어로 <b>won</b>이고, 숫자가 커도 <b>wons</b>라고 하지 않아요.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<dialog id="sheet" aria-labelledby="sheetTitle"></dialog>
+
+<script>
+const STORES = {
+  daiso:   "다이소",
+  cvs:     "편의점",
+  oliveyoung: "올리브영",
+  clothes: "옷가게",
+  shoes:   "신발가게",
+  market:  "시장·지하상가",
+  souvenir:"기념품점",
+  other:   "기타"
+};
+
+const ITEMS = [
+  { id:"socks", en:"socks", ko:"양말", emoji:"🧦", kind:"pair", price:2000, range:"1,000~3,000원",
+    unit:"a pair of socks",
+    features:[
+      ["They have cute character and K-pop designs.","귀여운 캐릭터나 K-pop 그림이 있어요."],
+      ["They are soft and come in many colors.","부드럽고 색깔이 다양해요."],
+      ["You can buy five pairs for about 10,000 won on the street.","거리 가게에서는 5켤레에 약 1만 원에 팔기도 해요."]
+    ],
+    where:[
+      ["daiso","다이소","캐릭터·발목 양말","1,000~2,000원"],
+      ["cvs","편의점","급할 때 사는 기본 양말","2,000~3,000원"],
+      ["market","명동 거리 가게","재미있는 그림 양말","5켤레 10,000원"]
+    ]},
+  { id:"glasses", en:"glasses", ko:"안경 (블루라이트 차단)", emoji:"👓", kind:"always", price:5000, range:"5,000원~",
+    unit:"a pair of glasses",
+    features:[
+      ["They block blue light from phones and computers.","휴대폰과 컴퓨터의 블루라이트를 막아 줘요."],
+      ["They are light and easy to wear.","가볍고 쓰기 편해요."],
+      ["You can get real glasses in about an hour at an eyeglass shop.","안경점에서는 1시간 정도면 도수 안경을 맞출 수 있어요."]
+    ],
+    where:[
+      ["daiso","다이소","도수 없는 블루라이트 안경","5,000원"],
+      ["other","안경점","시력 검사 후 도수 안경","30,000원~"]
+    ]},
+  { id:"sunglasses", en:"sunglasses", ko:"선글라스", emoji:"🕶️", kind:"always", price:5000, range:"3,000~10,000원",
+    unit:"a pair of sunglasses",
+    features:[
+      ["They protect your eyes from the sun.","햇빛으로부터 눈을 보호해요."],
+      ["Some come in fun shapes, like hearts and stars.","하트나 별 모양처럼 재미있는 모양도 있어요."]
+    ],
+    where:[
+      ["daiso","다이소","어린이용·성인용","3,000~5,000원"],
+      ["market","동대문·명동 거리 가게","유행하는 디자인","10,000원~"]
+    ]},
+  { id:"scissors", en:"scissors", ko:"가위", emoji:"✂️", kind:"always", price:1000, range:"1,000~3,000원",
+    unit:"a pair of scissors",
+    features:[
+      ["They are sharp but safe for kids.","잘 잘리지만 어린이가 쓰기에도 안전해요."],
+      ["Some have soft, colorful handles.","손잡이가 말랑하고 알록달록한 것도 있어요."]
+    ],
+    where:[
+      ["daiso","다이소","학용품·주방 가위","1,000~2,000원"],
+      ["other","문구점","캐릭터 가위","2,000~3,000원"]
+    ]},
+  { id:"chopsticks", en:"chopsticks", ko:"젓가락", emoji:"🥢", kind:"pair", price:2000, range:"1,000~30,000원",
+    unit:"a pair of chopsticks",
+    features:[
+      ["Korean chopsticks are usually metal and flat.","한국 젓가락은 보통 쇠로 만들고 납작해요."],
+      ["They are a great souvenir from Korea.","한국 여행 기념품으로 좋아요."],
+      ["Some have beautiful mother-of-pearl designs.","자개로 예쁘게 꾸민 젓가락도 있어요."]
+    ],
+    where:[
+      ["daiso","다이소","스테인리스·캐릭터 젓가락","1,000~3,000원"],
+      ["souvenir","인사동 기념품점","자개 수저 세트","10,000~30,000원"]
+    ]},
+  { id:"gloves", en:"gloves", ko:"터치 장갑", emoji:"🧤", kind:"pair", price:3000, range:"2,000~5,000원",
+    unit:"a pair of gloves",
+    features:[
+      ["You can use your phone with these touch gloves.","장갑을 낀 채로 휴대폰을 쓸 수 있어요."],
+      ["They keep your hands warm in winter.","겨울에 손을 따뜻하게 해 줘요."]
+    ],
+    where:[
+      ["daiso","다이소","터치 장갑, 털장갑","2,000~3,000원"],
+      ["market","지하상가","캐릭터 장갑","5,000원~"]
+    ]},
+  { id:"rubber-gloves", en:"rubber gloves", ko:"고무장갑", emoji:"🧽", kind:"pair", price:1000, range:"1,000~4,000원",
+    unit:"a pair of rubber gloves",
+    features:[
+      ["Korean rubber gloves are often bright pink or red.","한국 고무장갑은 밝은 분홍색이나 빨간색이 많아요."],
+      ["People use them to wash dishes and make kimchi.","설거지를 하거나 김치를 담글 때 써요."]
+    ],
+    where:[
+      ["daiso","다이소","주방용 고무장갑","1,000~2,000원"],
+      ["other","대형 마트","두꺼운 김장용","2,000~4,000원"]
+    ]},
+  { id:"slippers", en:"slippers", ko:"실내화·슬리퍼", emoji:"🥿", kind:"pair", price:3000, range:"2,000~5,000원",
+    unit:"a pair of slippers",
+    features:[
+      ["Koreans wear them inside the house and at school.","한국에서는 집 안과 학교에서 신어요."],
+      ["They are soft and warm.","푹신하고 따뜻해요."]
+    ],
+    where:[
+      ["daiso","다이소","실내화, 털 슬리퍼","2,000~5,000원"]
+    ]},
+  { id:"flip-flops", en:"flip-flops", ko:"쪼리·물놀이 슬리퍼", emoji:"🩴", kind:"pair", price:3000, range:"2,000~5,000원",
+    unit:"a pair of flip-flops",
+    features:[
+      ["They are great for the beach and the swimming pool.","바닷가나 수영장에서 신기 좋아요."],
+      ["They dry quickly.","물에 젖어도 빨리 말라요."]
+    ],
+    where:[
+      ["daiso","다이소","여름 물놀이용","2,000~3,000원"],
+      ["cvs","해수욕장 근처 편의점","급할 때","5,000원~"]
+    ]},
+  { id:"earphones", en:"earphones", ko:"유선 이어폰", emoji:"🎧", kind:"pair", price:5000, range:"3,000~10,000원",
+    unit:"a pair of earphones",
+    features:[
+      ["They are small and easy to carry.","작아서 가지고 다니기 편해요."],
+      ["They come in many cute colors.","귀여운 색깔이 많아요."]
+    ],
+    where:[
+      ["daiso","다이소","유선 이어폰","3,000~5,000원"],
+      ["cvs","편의점","급할 때 사는 이어폰","5,000~10,000원"],
+      ["other","전자제품 매장","좋은 소리, 무선 제품","20,000원~"]
+    ]},
+  { id:"shoelaces", en:"shoelaces", ko:"신발끈", emoji:"🪢", kind:"pair", price:1000, range:"1,000~5,000원",
+    unit:"a pair of shoelaces",
+    features:[
+      ["They come in many colors and patterns.","색깔과 무늬가 아주 다양해요."],
+      ["They can make your old sneakers look new.","낡은 운동화를 새것처럼 바꿔 줘요."]
+    ],
+    where:[
+      ["daiso","다이소","캐릭터·형광 신발끈","1,000~2,000원"],
+      ["shoes","신발가게","운동화용 신발끈","3,000~5,000원"]
+    ]},
+  { id:"earrings", en:"earrings", ko:"귀걸이", emoji:"💎", kind:"pair", price:2000, range:"1,000~10,000원",
+    unit:"a pair of earrings",
+    features:[
+      ["Some are clip-on, so you don't need pierced ears.","집게형은 귀를 뚫지 않아도 할 수 있어요."],
+      ["You can find hundreds of styles in underground shopping centers.","지하상가에 가면 수백 가지 디자인이 있어요."]
+    ],
+    where:[
+      ["daiso","다이소","간단한 액세서리","1,000~3,000원"],
+      ["market","고속터미널·강남 지하상가","유행하는 디자인","5,000~10,000원"]
+    ]},
+  { id:"false-eyelashes", en:"false eyelashes", ko:"인조 속눈썹", emoji:"👁️", kind:"pair", price:8000, range:"2,000~12,000원",
+    unit:"a pair of false eyelashes",
+    features:[
+      ["They make your eyes look bigger.","눈이 더 커 보이게 해요."],
+      ["People wear them for dance shows and school festivals.","댄스 공연이나 학교 축제 때 많이 붙여요."]
+    ],
+    where:[
+      ["oliveyoung","올리브영","여러 디자인, 풀 포함","5,000~12,000원"],
+      ["daiso","다이소","기본 디자인","2,000~3,000원"]
+    ]},
+  { id:"tweezers", en:"tweezers", ko:"족집게·핀셋", emoji:"🤏", kind:"always", price:5000, range:"1,000~10,000원",
+    unit:"a pair of tweezers",
+    features:[
+      ["They help you pick up very small things.","아주 작은 물건을 집을 때 좋아요."],
+      ["Many people use them to shape their eyebrows.","눈썹을 다듬을 때도 많이 써요."]
+    ],
+    where:[
+      ["daiso","다이소","기본 족집게","1,000~2,000원"],
+      ["oliveyoung","올리브영","정밀한 뷰티 족집게","5,000~10,000원"]
+    ]},
+  { id:"nail-clippers", en:"nail clippers", ko:"손톱깎이", emoji:"💅", kind:"always", price:3000, range:"1,000~10,000원",
+    unit:"a pair of nail clippers",
+    features:[
+      ["Korean nail clippers are strong and last a long time.","한국 손톱깎이는 튼튼하고 오래 써요."],
+      ["Many tourists buy them as gifts.","관광객들이 선물로 많이 사 가요."]
+    ],
+    where:[
+      ["daiso","다이소","기본 손톱깎이","1,000~3,000원"],
+      ["oliveyoung","올리브영","손톱깎이 세트","3,000~10,000원"]
+    ]},
+  { id:"earmuffs", en:"earmuffs", ko:"귀마개", emoji:"❄️", kind:"always", price:5000, range:"3,000~10,000원",
+    unit:"a pair of earmuffs",
+    features:[
+      ["They keep your ears warm in winter.","겨울에 귀를 따뜻하게 해 줘요."],
+      ["Many have fluffy animal ears on top.","위에 폭신한 동물 귀가 달린 것이 많아요."]
+    ],
+    where:[
+      ["daiso","다이소","털 귀마개","3,000~5,000원"],
+      ["market","지하상가","캐릭터 귀마개","5,000~10,000원"]
+    ]},
+  { id:"pajamas", en:"pajamas", ko:"잠옷", emoji:"🌙", kind:"always", price:25000, range:"20,000~40,000원",
+    unit:"a pair of pajamas",
+    features:[
+      ["They are soft and comfortable.","부드럽고 편해요."],
+      ["Some have cartoon characters on them.","만화 캐릭터가 그려진 것도 있어요."]
+    ],
+    where:[
+      ["clothes","SPAO · 탑텐","캐릭터 협업 잠옷","20,000~40,000원"],
+      ["other","대형 마트","기본 잠옷","15,000원~"]
+    ]},
+  { id:"jeans", en:"jeans", ko:"청바지", emoji:"👖", kind:"always", price:39000, range:"20,000~50,000원",
+    unit:"a pair of jeans",
+    features:[
+      ["They are strong, so you can wear them for years.","튼튼해서 몇 년 동안 입을 수 있어요."],
+      ["Wide jeans are very popular in Korea now.","요즘 한국에서는 통 넓은 청바지가 인기예요."]
+    ],
+    where:[
+      ["clothes","SPAO · 탑텐 · 유니클로","기본 청바지","30,000~50,000원"],
+      ["market","동대문 시장","싸고 종류가 많음","20,000원~"]
+    ]},
+  { id:"shorts", en:"shorts", ko:"반바지", emoji:"🩳", kind:"always", price:20000, range:"10,000~25,000원",
+    unit:"a pair of shorts",
+    features:[
+      ["They are cool in hot Korean summers.","더운 한국 여름에 시원해요."],
+      ["They are good for sports and the beach.","운동할 때나 바닷가에서 입기 좋아요."]
+    ],
+    where:[
+      ["clothes","SPAO · 탑텐","면·운동용 반바지","15,000~25,000원"],
+      ["market","동대문 시장","싼 반바지","10,000원~"]
+    ]},
+  { id:"sneakers", en:"sneakers", ko:"운동화", emoji:"👟", kind:"pair", price:59000, range:"30,000~100,000원",
+    unit:"a pair of sneakers",
+    features:[
+      ["They are comfortable for walking all day.","하루 종일 걸어도 편해요."],
+      ["Korean students wear them to school every day.","한국 학생들은 매일 학교에 신고 가요."]
+    ],
+    where:[
+      ["shoes","ABC마트 · 슈마커","유명 브랜드 운동화","50,000~100,000원"],
+      ["market","동대문 신발 상가","싸고 디자인이 다양함","30,000원~"]
+    ]}
+];
+
+const REMOVED = [
+  ["hand warmers","핫팩","한 개씩 사는 물건이라 How much is the hand warmer?가 자연스러움"],
+  ["batteries","건전지","한 개도 battery라 부름. 짝이 아님"],
+  ["noodles","컵라면","컵라면 하나는 a cup of noodles. 물건 단위로 묻기 어려움"],
+  ["potato chips","감자칩","보통 a bag of chips로 봉지 단위로 묻는 말"],
+  ["gummies","젤리","봉지 단위(a bag of gummies)로 사고팜"],
+  ["eye patches","아이패치","a pair of eye patches는 어색함. 통(a jar) 단위로 팜"],
+  ["claw clips","집게핀","집게핀은 한 개(a claw clip)로 쓰므로 a pair of가 틀림"],
+  ["hair ties","머리끈","묶음(a pack) 상품이고 한 개는 a hair tie"],
+  ["pimple patches","여드름 패치","묶음(a pack) 상품, 짝이 아님"],
+  ["sheet masks","마스크팩","한 장씩 사므로 How much is the sheet mask?가 자연스러움"]
+];
+const KEPT = ["socks","glasses","sunglasses","scissors","chopsticks","gloves","slippers","earphones","shoelaces","tweezers"];
+
+/* ---------- helpers ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const won = n => n.toLocaleString("en-US") + "원";
+const ONES = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+const TENS = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+function under1000(n) {
+  const parts = [];
+  if (n >= 100) { parts.push(ONES[Math.floor(n / 100)] + " hundred"); n %= 100; }
+  if (n >= 20) { parts.push(TENS[Math.floor(n / 10)] + (n % 10 ? "-" + ONES[n % 10] : "")); }
+  else if (n > 0) parts.push(ONES[n]);
+  return parts.join(" ");
+}
+function numWords(n) {
+  if (n === 0) return "zero";
+  const th = Math.floor(n / 1000), rest = n % 1000;
+  return [th ? under1000(th) + " thousand" : "", rest ? under1000(rest) : ""].filter(Boolean).join(" ");
+}
+const priceWords = n => numWords(n) + " won";
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const kindLabel = k => k === "pair" ? "짝(pair)" : "항상 복수";
+const storesOf = it => [...new Set(it.where.map(w => w[0]))];
+
+let voices = [];
+function loadVoices() { try { voices = speechSynthesis.getVoices(); } catch (e) {} }
+if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+function speak(text) {
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US"; u.rate = 0.85;
+    const v = voices.find(v => /^en[-_]US/i.test(v.lang)) || voices.find(v => /^en/i.test(v.lang));
+    if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-say]");
+  if (b) speak(b.dataset.say);
+});
+
+/* ---------- shop ---------- */
+const state = { store: "all", kind: "all" };
+function buildFilters() {
+  const sf = $("#storeFilter"), kf = $("#kindFilter");
+  const storeKeys = ["all", ...Object.keys(STORES).filter(k => ITEMS.some(it => storesOf(it).includes(k)))];
+  storeKeys.forEach(k => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.dataset.store = k;
+    b.textContent = k === "all" ? "전체" : STORES[k];
+    sf.appendChild(b);
+  });
+  [["all","전체"],["always","항상 복수"],["pair","짝(pair)"]].forEach(([k, l]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.dataset.kind = k; b.textContent = l;
+    kf.appendChild(b);
+  });
+  sf.addEventListener("click", e => { const b = e.target.closest("[data-store]"); if (b) { state.store = b.dataset.store; renderGrid(); } });
+  kf.addEventListener("click", e => { const b = e.target.closest("[data-kind]"); if (b) { state.kind = b.dataset.kind; renderGrid(); } });
+}
+function renderGrid() {
+  document.querySelectorAll("#storeFilter .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.store === state.store));
+  document.querySelectorAll("#kindFilter .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === state.kind));
+  const list = ITEMS.filter(it =>
+    (state.store === "all" || storesOf(it).includes(state.store)) &&
+    (state.kind === "all" || it.kind === state.kind));
+  $("#count").textContent = `${list.length}개 물건`;
+  $("#grid").innerHTML = list.map(it => `
+    <button class="card" type="button" data-id="${it.id}" aria-label="${esc(it.en)}, ${esc(it.ko)}, ${won(it.price)}">
+      <span class="tag">₩${it.price.toLocaleString("en-US")}</span>
+      <span class="emo" aria-hidden="true">${it.emoji}</span>
+      <span class="en">${esc(it.en)}</span>
+      <span class="ko">${esc(it.ko)}</span>
+      <span class="meta"><span class="kind ${it.kind}">${kindLabel(it.kind)}</span></span>
+      <span class="stores">${storesOf(it).map(k => STORES[k]).join(" · ")}</span>
+    </button>`).join("");
+}
+$("#grid").addEventListener("click", e => {
+  const c = e.target.closest(".card"); if (c) openSheet(c.dataset.id);
+});
+
+const sheet = $("#sheet");
+function openSheet(id) {
+  const it = ITEMS.find(x => x.id === id);
+  const q = `How much are the ${it.en}?`;
+  const a = `They're ${priceWords(it.price)}.`;
+  const tip = it.kind === "always"
+    ? `<div class="tip"><b>${esc(it.en)}</b>는 영어에서 <b>항상 복수형</b>이에요. ‘a ${esc(sing(it.en))}’라고 하지 않고, 하나를 말할 때는 <b>${esc(it.unit)}</b>라고 해요.</div>`
+    : `<div class="tip pairtip"><b>${esc(it.en)}</b>는 두 개가 <b>한 쌍</b>이라 복수형으로 사고팔아요. 한 쌍은 <b>${esc(it.unit)}</b>, 두 쌍은 <b>${esc(it.unit.replace("a pair", "two pairs"))}</b>.</div>`;
+  sheet.innerHTML = `
+    <div class="sheet">
+      <div class="sheet-head">
+        <span class="emo" aria-hidden="true">${it.emoji}</span>
+        <div>
+          <h2 id="sheetTitle">${esc(it.en)}</h2>
+          <div class="ko">${esc(it.ko)} · <span class="kind ${it.kind}">${kindLabel(it.kind)}</span></div>
+        </div>
+        <button class="x" type="button" data-close aria-label="닫기">✕</button>
+      </div>
+      <div class="row"><span class="tag big">₩${it.price.toLocaleString("en-US")}</span><span style="color:var(--muted);font-size:14px">보통 ${esc(it.range)}</span></div>
+      <div class="dialog-box">
+        <div class="line"><span class="who">A</span><span class="say">How much are the <b>${esc(it.en)}</b>?</span><button class="speak" type="button" data-say="${esc(q)}">🔊</button></div>
+        <div class="line"><span class="who b">B</span><span class="say">They're <b>${won(it.price).replace("원"," won")}</b>.<small>${esc(priceWords(it.price))}</small></span><button class="speak" type="button" data-say="${esc(a)}">🔊</button></div>
+      </div>
+      <div class="block">
+        <h3>특징 · Features</h3>
+        <ul class="feat">${it.features.map(([e, k]) => `<li><span class="e">${esc(e)}</span><span class="k">${esc(k)}</span></li>`).join("")}</ul>
+      </div>
+      <div class="block">
+        <h3>어디서 살 수 있나요? · Where to buy</h3>
+        <table class="where"><tbody>${it.where.map(([, name, note, p]) => `<tr><td>${esc(name)}<span class="sub">${esc(note)}</span></td><td class="p">${esc(p)}</td></tr>`).join("")}</tbody></table>
+      </div>
+      ${tip}
+    </div>`;
+  if (typeof sheet.showModal === "function") sheet.showModal(); else sheet.setAttribute("open", "");
+}
+sheet.addEventListener("click", e => {
+  if (e.target === sheet || e.target.closest("[data-close]")) sheet.close();
+});
+
+/* ---------- quiz ---------- */
+const QN = 10;
+let quiz = null;
+function sing(en) { return /(ss|sh|ch|x)es$/.test(en) ? en.slice(0, -2) : en.replace(/s$/, ""); }
+function makeQuestion(it, type) {
+  if (type === "ask") {
+    const right = `How much are the ${it.en}?`;
+    const opts = shuffle([right, `How much is the ${it.en}?`, `How much are the ${sing(it.en)}?`, `How much is the ${sing(it.en)}?`]);
+    return { it, type, prompt: "손님이 되어 가격을 물어보세요.", sub: it.ko, opts, right };
+  }
+  const right = `They're ${priceWords(it.price)}.`;
+  const others = shuffle(ITEMS.filter(x => x.price !== it.price).map(x => x.price)).slice(0, 1);
+  const opts = shuffle([right, `It's ${priceWords(it.price)}.`, `They're ${priceWords(others[0])}.`, `They're ${priceWords(it.price)}s.`]);
+  return { it, type, prompt: `How much are the ${it.en}?`, sub: `가격표: ₩${it.price.toLocaleString("en-US")}`, opts, right };
+}
+function newQuiz() {
+  const items = shuffle(ITEMS).slice(0, QN);
+  quiz = { qs: items.map((it, i) => makeQuestion(it, i % 2 ? "answer" : "ask")), i: 0, score: 0, answered: false };
+  renderQuiz();
+}
+function renderQuiz() {
+  const box = $("#quiz");
+  if (quiz.i >= quiz.qs.length) {
+    const msg = quiz.score === QN ? "완벽해요! 복수형 가게 주인이 되어도 되겠어요." : quiz.score >= 7 ? "잘했어요! 틀린 문장만 한 번 더 읽어 보세요." : "are와 They're, 그리고 -s를 다시 확인해 봐요.";
+    box.innerHTML = `<div class="result"><div class="score">${quiz.score} / ${QN}</div><p>${msg}</p><button class="btn" id="again" type="button">다시 하기</button></div>`;
+    $("#again").onclick = newQuiz;
+    return;
+  }
+  const q = quiz.qs[quiz.i];
+  box.innerHTML = `
+    <div class="quiz-top"><span>문제 ${quiz.i + 1} / ${QN}</span><span>점수 ${quiz.score}</span></div>
+    <div class="bar"><i style="width:${(quiz.i / QN) * 100}%"></i></div>
+    <div class="prompt">
+      <span class="emo" aria-hidden="true">${q.it.emoji}</span>
+      <div><div class="q">${esc(q.prompt)}</div><div class="ko">${esc(q.sub)} ${q.type === "answer" ? "· 점원이 되어 대답해 보세요." : ""}</div></div>
+    </div>
+    <div class="opts">${q.opts.map((o, k) => `<button class="opt" type="button" data-k="${k}">${esc(o)}</button>`).join("")}</div>
+    <div class="feedback" id="fb" aria-live="polite"></div>
+    <div class="row"><button class="btn" id="qNext" type="button" hidden>다음 ▶</button><button class="btn ghost" type="button" data-say="${esc(q.right)}">🔊 정답 듣기</button></div>`;
+  box.querySelectorAll(".opt").forEach(b => b.onclick = () => answer(b));
+  $("#qNext").onclick = () => { quiz.i++; renderQuiz(); };
+}
+function answer(btn) {
+  const q = quiz.qs[quiz.i];
+  const chosen = q.opts[+btn.dataset.k];
+  const ok = chosen === q.right;
+  if (ok) quiz.score++;
+  $("#quiz").querySelectorAll(".opt").forEach(b => {
+    b.disabled = true;
+    if (q.opts[+b.dataset.k] === q.right) b.classList.add("right");
+  });
+  if (!ok) btn.classList.add("wrong");
+  const fb = $("#fb");
+  let why = "";
+  if (!ok) {
+    if (/is the|It's/.test(chosen)) why = `${q.it.en}는 복수라서 is가 아니라 are, It's가 아니라 They're를 써요.`;
+    else if (/wons/.test(chosen)) why = "won은 복수형이 없어요. wons라고 하지 않아요.";
+    else if (q.type === "answer") why = "가격표의 숫자를 다시 확인해 보세요.";
+    else why = `물건 이름도 복수형 ${q.it.en}로 써야 해요.`;
+  }
+  fb.className = "feedback " + (ok ? "ok" : "no");
+  fb.textContent = ok ? "정답! " + q.right : "아쉬워요. " + why;
+  speak(q.right);
+  $("#qNext").hidden = false;
+  $("#qNext").textContent = quiz.i === QN - 1 ? "결과 보기 ▶" : "다음 ▶";
+}
+
+/* ---------- role play ---------- */
+let rpItem = null;
+function renderRP(it) {
+  rpItem = it || pick(ITEMS.filter(x => x !== rpItem));
+  const r = rpItem;
+  $("#rp").innerHTML = `
+    <div class="rp-card">
+      <div class="role">A · 손님 (Customer)</div>
+      <div class="emo" aria-hidden="true">${r.emoji}</div>
+      <div class="big">${esc(r.en)}</div>
+      <div class="frame">How much are the <u>${esc(r.en)}</u>?</div>
+    </div>
+    <div class="rp-card">
+      <div class="role">B · 점원 (Clerk)</div>
+      <div id="rpHidden" class="hidden-price"><button class="btn ghost" id="rpReveal" type="button">가격표 보기 (점원만!)</button></div>
+      <div id="rpShown" hidden>
+        <span class="tag big">₩${r.price.toLocaleString("en-US")}</span>
+        <p class="frame">They're <u>${esc(priceWords(r.price))}</u>.</p>
+        <p style="margin:0;color:var(--muted);font-size:14px">더 말해 보기: “${esc(r.features[0][0])}”</p>
+      </div>
+    </div>`;
+  $("#rpReveal").onclick = () => { $("#rpHidden").hidden = true; $("#rpShown").hidden = false; };
+}
+$("#rpNext").onclick = () => renderRP();
+$("#rpSpeak").onclick = () => speak(`How much are the ${rpItem.en}? They're ${priceWords(rpItem.price)}.`);
+
+/* ---------- review ---------- */
+function renderReview() {
+  const rows = [];
+  KEPT.forEach(id => { const it = ITEMS.find(x => x.id === id); rows.push(`<tr><td><span class="st keep">유지</span></td><td><b>${esc(it.en)}</b></td><td>${esc(it.ko)}</td><td>${it.kind === "always" ? "항상 복수형으로 쓰는 말" : "두 개가 한 쌍인 물건"}</td></tr>`); });
+  REMOVED.forEach(([en, ko, why]) => rows.push(`<tr><td><span class="st out">제외</span></td><td><b>${esc(en)}</b></td><td>${esc(ko)}</td><td>${esc(why)}</td></tr>`));
+  ITEMS.filter(it => !KEPT.includes(it.id)).forEach(it => rows.push(`<tr><td><span class="st new">추가</span></td><td><b>${esc(it.en)}</b></td><td>${esc(it.ko)}</td><td>${it.kind === "always" ? "항상 복수형" : "짝(pair)"} · ${esc(it.unit)}</td></tr>`));
+  $("#reviewTable").innerHTML = `<thead><tr><th>결과</th><th>English</th><th>우리말</th><th>이유</th></tr></thead><tbody>${rows.join("")}</tbody>`;
+}
+
+/* ---------- routing ---------- */
+const VIEWS = ["shop", "quiz", "roleplay", "review"];
+function route() {
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "shop";
+  VIEWS.forEach(k => { $("#view-" + k).hidden = k !== v; });
+  document.querySelectorAll("nav.tabs a").forEach(a => { if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+}
+window.addEventListener("hashchange", route);
+
+/* hero word rotates through items */
+let hi = 0;
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!reduce) setInterval(() => { hi = (hi + 1) % ITEMS.length; $("#heroWord").textContent = ITEMS[hi].en; }, 2200);
+
+buildFilters();
+renderGrid();
+newQuiz();
+renderRP(ITEMS[0]);
+renderReview();
+route();
+</script>
+</body>
+</html>
