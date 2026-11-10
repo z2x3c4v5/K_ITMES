@@ -128,6 +128,9 @@ section.view { display: grid; gap: 18px; }
 .card .ko { font-size: 13px; color: var(--muted); margin-top: -2px; }
 .price { font-weight: 900; font-size: 20px; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
 .price small { font-weight: 500; font-size: 12px; color: var(--muted); margin-left: 4px; }
+.card-where { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; align-items: center; background: var(--mint-soft); border-radius: 12px; padding: 7px 8px 7px 10px; font-size: 13px; font-weight: 500; line-height: 1.4; margin-top: 4px; }
+.card-where small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.card-where .speak { min-width: 30px; height: 30px; padding: 0 6px; font-size: 13px; }
 .card-actions { display: flex; gap: 6px; margin-top: 6px; position: relative; z-index: 2; }
 .cart-btn { flex: 1; border: 2px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 12px; padding: 6px 8px; font-weight: 700; font-size: 13px; }
 .cart-btn.on { background: var(--accent); color: var(--accent-ink); }
@@ -563,6 +566,7 @@ function renderGrid() {
         <span class="en">${esc(it.en)}</span>
         <span class="ko">${esc(it.ko)}</span>
         <span class="price">${won(it.price)}<small>보통 ${esc(it.range)}</small></span>
+        ${whereFor(it).map(x => { const e = x.segs.map(t => t.t).join(""); return `<div class="card-where"><span>📍 ${wordsHTML(e)}<small>${esc(x.ko)}</small></span>${sayBtn(e)}</div>`; }).join("")}
         <div class="card-actions">
           ${sayBtn(talkFor(it).map(x => x.say).join(" "), it.en + " 듣기")}
           <button class="cart-btn${on ? " on" : ""}" type="button" data-pick="${it.id}">${on ? "✓ 담았어요" : "🛒 담기"}</button>
@@ -598,12 +602,12 @@ function openSheet(id) {
       <div class="talk">
         ${talkFor(it).map(x => `<div class="bubble${x.clerk ? " b" : ""}"><span class="who">${x.clerk ? "🧑‍💼" : "🙋"}</span><span class="txt">${wordsHTML(x.say)}<small>${esc(x.ko)}</small></span>${sayBtn(x.say)}</div>`).join("")}
       </div>
-      <button class="pick-btn${on ? " on" : ""}" type="button" id="pickBtn">${on ? "✓ 장바구니에 담았어요 (누르면 빼기)" : "🛒 이 물건 장바구니에 담기"}</button>
-      <a class="go" href="#mine" id="goMine"${on ? "" : " hidden"}>장바구니에서 영어노트로 연습하기 →</a>
       <div class="block">
         <h3>📍 어디서 살 수 있나요? · ${LV_NAME[state.lv]}</h3>
         <ul class="feat">${whereFor(it).map(x => { const e = x.segs.map(t => t.t).join(""); return `<li><span class="e">${wordsHTML(e)}</span><span class="k">${esc(x.ko)}</span>${sayBtn(e)}</li>`; }).join("")}</ul>
       </div>
+      <button class="pick-btn${on ? " on" : ""}" type="button" id="pickBtn">${on ? "✓ 장바구니에 담았어요 (누르면 빼기)" : "🛒 이 물건 장바구니에 담기"}</button>
+      <a class="go" href="#mine" id="goMine"${on ? "" : " hidden"}>장바구니에서 영어노트로 연습하기 →</a>
       <div class="block">
         <h3>✨ 특징 · ${LV_NAME[state.lv]}</h3>
         <ul class="feat">${featsFor(it).map(([e, k]) => `<li><span class="e">${wordsHTML(e)}</span><span class="k">${esc(k)}</span>${sayBtn(e)}</li>`).join("")}</ul>
