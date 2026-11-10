@@ -34,6 +34,10 @@
 ## 🗣️ 문장
 
 - *How much are the **sheet masks**?* — *They're **fifteen thousand won**.*
+- 어디서 살 수 있나요? (sheet masks)
+  - 🌱 초급: *You can buy them at Olive Young.*
+  - 🌿 중급: *You can buy them at Olive Young or at Daiso.*
+  - 🌳 고급: *If you go to Olive Young, you can find them easily, and they are also sold at Daiso.*
 - 특징 문장 예 (sheet masks)
   - 🌱 초급: *They are cool and wet.*
   - 🌿 중급: *You put them on your face for fifteen minutes.*
