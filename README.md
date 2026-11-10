@@ -1,46 +1,40 @@
-# 🇰🇷 Must-Buy Items in Korea — 짝이 있는(복수형) 물건 20
+# 🇰🇷 K-ITEMS — 외국인이 한국에서 꼭 사 가는 물건 20
 
-> 🛒 **웹 앱: [`index.html`](index.html)** — *Plural Price Shop*. 브라우저로 열면 바로 쓸 수 있어요.
-> 물건 20개(항상 복수형 · 짝 물건)의 가격·특징·살 수 있는 곳을 보고, 장바구니에 담은 물건의 *How much are the ___? They're ___.* 문장을 영어노트에서 듣고, 단어 뜻을 보고, 녹음하며 연습해요. 문장은 초급·중급·고급 중에서 골라요.
-> 아래 처음 목록 중 10개(핫팩, 건전지, 컵라면 등)는 단수로 사는 물건이라 웹 앱에서는 다른 복수형 물건으로 바꿨어요.
+> 🛒 **웹 앱: [`index.html`](index.html)** — 브라우저로 열면 바로 쓸 수 있어요.
+> 물건 이름 · 가격 · 특징을 보고, 장바구니에 담은 물건의 *How much are the ___? They're ___.* 문장과 특징 문장을 영어노트에서 듣고, 단어 뜻을 보고, 녹음하며 연습해요.
+> 특징 문장은 🌱 초급 · 🌿 중급 · 🌳 고급 중에서 골라요. 물건과 가격은 단계와 상관없이 같아요.
 
-외국 초·중등 학생이 한국의 **다이소 · 편의점 · 올리브영**에서 사면 좋은 물건 20가지입니다.
-영어로 **항상 복수형(-s)** 으로 쓰거나 **a pair of ~ (한 쌍/한 켤레)** 로 세는 물건 위주로 골랐어요.
+외국인 관광객이 많이 가는 **올리브영 · 다이소 · 아트박스 · 명동 · 인사동 · 지하상가 · 편의점**의 인기 물건 가운데, 영어로 **복수형**으로 묻고 답할 수 있는 것을 골랐어요.
 
-> 💡 그림은 이모지, 가격은 2026년 기준 **대략적인 가격**입니다. 매장·상품에 따라 달라질 수 있어요.
+> 💡 가격은 2026년 기준 **대략적인 가격**이에요. 매장·브랜드·할인 행사에 따라 달라질 수 있어요. 그림은 Canva로 만든 이미지예요.
 
-| No. | 그림 | 물건 (English) | 우리말 | 어디서? | 가격 (약) | 영어로 세는 법 |
-|:---:|:---:|---|---|:---:|---:|---|
-| 1 | 🧦 | **socks** | 캐릭터 양말 | 다이소 | 1,000~2,000원 | a pair of socks |
-| 2 | 👓 | **glasses** | 블루라이트 차단 안경 | 다이소 | 3,000~5,000원 | a pair of glasses |
-| 3 | 🕶️ | **sunglasses** | 선글라스 | 다이소 | 3,000원 | a pair of sunglasses |
-| 4 | ✂️ | **scissors** | 가위 | 다이소 | 1,000원 | a pair of scissors |
-| 5 | 🥢 | **chopsticks** | 젓가락 (캐릭터·스테인리스) | 다이소 | 1,000~2,000원 | a pair of chopsticks |
-| 6 | 🧤 | **gloves** | 터치 장갑 | 다이소 | 2,000~3,000원 | a pair of gloves |
-| 7 | 🩴 | **slippers** | 실내화·슬리퍼 | 다이소 | 2,000~5,000원 | a pair of slippers |
-| 8 | 🎧 | **earphones** | 유선 이어폰 | 다이소 | 3,000~5,000원 | a pair of earphones |
-| 9 | 👟 | **shoelaces** | 캐릭터 신발끈 | 다이소 | 1,000원 | a pair of shoelaces |
-| 10 | 🔥 | **hand warmers** | 핫팩 | 편의점 | 1,000~2,000원 | a pack of hand warmers |
-| 11 | 🔋 | **batteries** | AA 건전지 (2개입) | 편의점 | 약 3,000원 | a pack of batteries |
-| 12 | 🍜 | **noodles** | 컵라면 (불닭볶음면) | 편의점 | 약 1,800원 | a cup of noodles |
-| 13 | 🥔 | **potato chips** | 감자칩 (허니버터칩) | 편의점 | 약 2,000원 | a bag of potato chips |
-| 14 | 🍬 | **gummies** | 젤리 | 편의점 | 1,500~2,500원 | a bag of gummies |
-| 15 | 👀 | **eye patches** | 하이드로겔 아이패치 | 올리브영 | 15,000~20,000원 | a pair of eye patches |
-| 16 | 🦀 | **claw clips** | 집게핀 | 올리브영 | 3,000~8,000원 | a pair of claw clips |
-| 17 | 🎀 | **hair ties** | 머리끈 | 올리브영 | 2,000~5,000원 | a pack of hair ties |
-| 18 | 🤏 | **tweezers** | 족집게(핀셋) | 올리브영 | 5,000~10,000원 | a pair of tweezers |
-| 19 | 🩹 | **pimple patches** | 여드름 패치 | 올리브영 | 5,000~10,000원 | a pack of pimple patches |
-| 20 | 🧖 | **sheet masks** | 마스크팩 | 올리브영 | 1,000~3,000원 (1장) | a pack of sheet masks |
+| No. | 물건 (English) | 우리말 | 어디서? | 가격 (연습용) | 보통 가격 |
+|:---:|---|---|---|---:|---|
+| 1 | **sheet masks** | 마스크팩 (10장 묶음) | 올리브영, 다이소 | 15,000원 | 10장 10,000~20,000원 |
+| 2 | **pimple patches** | 여드름 패치 | 올리브영, 다이소 | 5,000원 | 3,000~8,000원 |
+| 3 | **lip tints** | 립틴트 | 올리브영 | 13,000원 | 10,000~15,000원 |
+| 4 | **eye patches** | 하이드로겔 아이패치 (60장) | 올리브영 | 18,000원 | 60장 15,000~20,000원 |
+| 5 | **hand creams** | 핸드크림 (3개 세트) | 올리브영, 다이소 | 12,000원 | 3개 세트 10,000~15,000원 |
+| 6 | **hair rollers** | 앞머리 롤 | 다이소, 올리브영 | 2,000원 | 1,000~3,000원 |
+| 7 | **Italy towels** | 이태리타월 (때밀이 수건) | 다이소, 편의점·마트 | 1,000원 | 1,000~2,000원 |
+| 8 | **photocard sleeves** | 포토카드 슬리브 | 다이소, 아트박스 | 1,000원 | 1,000~2,000원 |
+| 9 | **chopsticks** | 쇠젓가락·수저 세트 | 다이소, 인사동 기념품점 | 3,000원 | 2,000~30,000원 |
+| 10 | **nail clippers** | 손톱깎이 | 다이소, 올리브영 | 3,000원 | 1,000~10,000원 |
+| 11 | **stickers** | 다꾸 스티커 | 아트박스, 다이소 | 2,500원 | 2,000~4,000원 |
+| 12 | **gel pens** | 젤펜 (3자루) | 아트박스, 다이소 | 4,500원 | 3자루 3,000~6,000원 |
+| 13 | **keychains** | 캐릭터 키링 | 아트박스, 명동 거리 | 8,000원 | 5,000~12,000원 |
+| 14 | **hair clips** | 리본 헤어핀 | 아트박스, 올리브영, 지하상가 | 4,000원 | 3,000~6,000원 |
+| 15 | **sticky notes** | 모양 메모지 | 아트박스, 다이소 | 3,000원 | 2,000~4,000원 |
+| 16 | **socks** | 캐릭터 양말 | 명동 거리, 다이소 | 2,000원 | 1,000~3,000원 |
+| 17 | **Choco Pies** | 초코파이 (12개 상자) | 편의점·마트 | 6,000원 | 12개 5,000~7,000원 |
+| 18 | **fridge magnets** | 기념품 냉장고 자석 | 인사동 기념품점, 명동 거리 | 5,000원 | 3,000~10,000원 |
+| 19 | **bookmarks** | 전통 문양 책갈피 | 인사동 기념품점 | 5,000원 | 3,000~8,000원 |
+| 20 | **earrings** | 귀걸이 | 지하상가, 명동 거리 | 5,000원 | 5,000~10,000원 |
 
-## 📝 함께 배우기
+## 🗣️ 문장
 
-- **둘이 한 쌍인 물건**은 늘 복수형으로 써요 → *glasses, scissors, tweezers, earphones*
-  - ❌ a glass / a scissor  ✅ **a pair of** glasses / **a pair of** scissors
-- 두 쌍 이상이면 *pair* 를 복수형으로! → **two pairs of** socks
-- 묶음으로 파는 물건은 **a pack of / a bag of / a cup of** 로 세요.
-
-### 🗣️ 가게에서 써 볼 문장
-
-- *How much is **a pair of** socks?* — 양말 한 켤레에 얼마예요?
-- *I want to buy **two pairs of** chopsticks.* — 젓가락 두 벌 사고 싶어요.
-- *Where are the **sunglasses**?* — 선글라스는 어디 있어요?
+- *How much are the **sheet masks**?* — *They're **fifteen thousand won**.*
+- 특징 문장 예 (sheet masks)
+  - 🌱 초급: *They are cool and wet.*
+  - 🌿 중급: *You put them on your face for fifteen minutes.*
+  - 🌳 고급: *Tourists buy them in big packs because they are much cheaper in Korea.*
