@@ -91,7 +91,7 @@ nav.tabs a { flex: 1; max-width: 240px; text-decoration: none; color: var(--mute
 nav.tabs a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
 .badge { background: var(--sun); color: var(--sun-ink); font-size: 12px; border-radius: 999px; padding: 0 8px; min-width: 22px; text-align: center; font-weight: 900; }
 
-main .wrap { padding-block: 22px 64px; }
+main .wrap { padding-block: 22px 64px; display: grid; gap: 18px; }
 section.view { display: grid; gap: 18px; }
 
 /* level aisles */
@@ -282,12 +282,13 @@ footer { color: var(--muted); font-size: 13px; }
 <main>
   <div class="wrap">
 
+    <div class="levels" role="group" aria-label="문장 단계">
+      <button class="lv" type="button" data-lv="1"><span class="t">🌱 초급</span><span class="d">짧은 문장 · 가격 묻고 답하기</span></button>
+      <button class="lv" type="button" data-lv="2"><span class="t">🌿 중급</span><span class="d">Excuse me · a pair of · 어디서 사요?</span></button>
+      <button class="lv" type="button" data-lv="3"><span class="t">🌳 고급</span><span class="d">긴 대화 · 두 개 계산 · 특징 설명</span></button>
+    </div>
+
     <section class="view" id="view-shop">
-      <div class="levels" role="group" aria-label="단계">
-        <button class="lv" type="button" data-lv="1"><span class="t">🌱 초급</span><span class="d">쉬운 단어 · 가격 묻고 답하기</span></button>
-        <button class="lv" type="button" data-lv="2"><span class="t">🌿 중급</span><span class="d">+ a pair of · 어디서 사요?</span></button>
-        <button class="lv" type="button" data-lv="3"><span class="t">🌳 고급</span><span class="d">+ 물건 특징 설명하기</span></button>
-      </div>
       <div class="filters" id="storeFilter" role="group" aria-label="가게"><span>어느 가게?</span></div>
       <div class="note">
         <span><b>항상 복수</b> glasses, scissors, jeans처럼 단수형이 없어요.</span>
@@ -532,17 +533,11 @@ const ITEMS = [
     ]}
 ];
 
-/* 초급 = short everyday words · 중급 = longer words · 고급 = compound words */
-const LEVEL = {
-  socks: 1, glasses: 1, scissors: 1, gloves: 1, shorts: 1, jeans: 1, sneakers: 1,
-  sunglasses: 2, chopsticks: 2, slippers: 2, earphones: 2, earrings: 2, pajamas: 2, shoelaces: 2,
-  "rubber-gloves": 3, "flip-flops": 3, "false-eyelashes": 3, tweezers: 3, "nail-clippers": 3, earmuffs: 3
-};
 const LV_NAME = { 1: "🌱 초급", 2: "🌿 중급", 3: "🌳 고급" };
 
 /* Korean meanings for every word used in the sentences */
 const DICT = {
-  "a":"하나의 (a)","abc-mart":"ABC마트 (신발가게)","about":"약, 대략","all":"모든, 내내","an":"하나의 (an)","and":"그리고","animal":"동물","are":"~이다 (복수)","as":"~로서","at":"~에서","beach":"바닷가, 해변","beautiful":"아름다운","big":"큰","bigger":"더 큰","block":"막다","blue":"파란; 블루","bright":"밝은","but":"하지만","buy":"사다","can":"~할 수 있다","carry":"가지고 다니다","cartoon":"만화","centers":"센터, 상가","character":"캐릭터","characters":"캐릭터들","chopsticks":"젓가락","clip-on":"집게형(귀를 안 뚫어도 되는)","clippers":"깎는 도구","colorful":"알록달록한","colors":"색깔들","come":"(상품이) 나오다","comfortable":"편안한","computers":"컴퓨터들","convenience":"편리함 (convenience store: 편의점)","cool":"시원한; 멋진","cute":"귀여운","daiso":"다이소","dance":"춤, 댄스","day":"날, 하루","designs":"디자인들","dishes":"접시들, 설거지거리","don't":"~하지 않다","dongdaemun":"동대문","dry":"마르다","earmuffs":"귀마개","earphones":"이어폰","earrings":"귀걸이","ears":"귀들","easy":"쉬운","eight":"8, 여덟","eighty":"80","electronics":"전자제품","every":"매, 모든","eyebrows":"눈썹","eyeglass":"안경","eyelashes":"속눈썹","eyes":"눈들","false":"가짜의, 인조","festivals":"축제들","fifty":"50","find":"찾다","five":"5, 다섯","flat":"납작한","flip-flops":"쪼리, 슬리퍼","fluffy":"폭신한","for":"~을 위해, ~동안","forty":"40","four":"4, 넷","from":"~으로부터","fun":"재미있는","gangnam":"강남","get":"얻다, 맞추다","gifts":"선물들","glasses":"안경","gloves":"장갑","good":"좋은","great":"아주 좋은","handles":"손잡이들","hands":"손들","have":"가지고 있다","hearts":"하트 모양들","help":"돕다","hot":"더운, 뜨거운","hour":"1시간","house":"집","how":"얼마나, 어떻게","hundred":"100, 백","hundreds":"수백","i":"나, 저","in":"~안에, ~에서","insadong":"인사동","inside":"~안에서","jeans":"청바지","k-pop":"케이팝","keep":"유지하다 (keep warm: 따뜻하게 하다)","kids":"아이들","kimchi":"김치","korea":"한국","korean":"한국의","koreans":"한국 사람들","last":"오래가다","light":"가벼운; 빛","like":"~처럼","long":"긴, 오래","look":"~해 보이다","make":"만들다","many":"많은","market":"시장","metal":"금속, 쇠","mother-of-pearl":"자개","much":"많이 (How much: 얼마)","myeongdong":"명동","nail":"손톱","near":"~근처에","need":"필요하다","new":"새로운","nine":"9, 아홉","ninety":"90","now":"지금, 요즘","of":"~의","often":"자주, 흔히","old":"오래된","olive":"올리브 (Olive Young: 올리브영)","on":"~위에","one":"1, 하나","or":"또는","pair":"한 쌍, 한 켤레","pairs":"쌍들, 켤레들","pajamas":"잠옷","patterns":"무늬들","people":"사람들","phone":"휴대폰","phones":"휴대폰들","pick":"집다 (pick up: 집어 올리다)","pierced":"뚫은","pink":"분홍색의","pool":"수영장","popular":"인기 있는","protect":"보호하다","quickly":"빨리","real":"진짜의","red":"빨간","rubber":"고무","safe":"안전한","school":"학교","scissors":"가위","seven":"7, 일곱","seventy":"70","shape":"다듬다; 모양","shapes":"모양들","sharp":"날카로운","shoe":"신발","shoelaces":"신발끈","shoemarker":"슈마커 (신발가게)","shop":"가게","shopping":"쇼핑","shops":"가게들","shorts":"반바지","shows":"공연들","six":"6, 여섯","sixty":"60","slippers":"슬리퍼, 실내화","small":"작은","sneakers":"운동화","so":"그래서","socks":"양말","soft":"부드러운","some":"어떤 것들은","souvenir":"기념품","spao":"스파오 (옷가게)","sports":"운동","stars":"별들","stationery":"문구","stores":"가게들","street":"거리","strong":"튼튼한","students":"학생들","styles":"스타일들","summers":"여름들","sun":"해, 햇빛","sunglasses":"선글라스","supermarkets":"마트들","swimming":"수영","ten":"10, 열","the":"그 (정해진 것)","their":"그들의","them":"그것들을","these":"이것들","they":"그것들은","they're":"그것들은 ~이다 (They are)","things":"물건들","thirty":"30","thousand":"1,000, 천","three":"3, 셋","time":"시간","to":"~에, ~하기 위해","top":"위쪽","topten":"탑텐 (옷가게)","touch":"터치","tourists":"관광객들","tweezers":"족집게, 핀셋","twenty":"20","two":"2, 둘","underground":"지하의","uniqlo":"유니클로 (옷가게)","up":"위로","use":"사용하다","usually":"보통","very":"아주, 매우","walking":"걷기","want":"원하다","warm":"따뜻한","wash":"씻다","wear":"입다, 신다, 쓰다","wide":"넓은, 통이 큰","winter":"겨울","with":"~와 함께, ~로","won":"원 (한국 돈)","years":"년, 해들","you":"너, 여러분","young":"젊은 (Olive Young: 올리브영)","your":"너의","10,000":"10,000 (만)"
+  "a":"하나의 (a)","abc-mart":"ABC마트 (신발가게)","about":"약, 대략","all":"모든, 내내","an":"하나의 (an)","and":"그리고","animal":"동물","are":"~이다 (복수)","as":"~로서","at":"~에서","beach":"바닷가, 해변","beautiful":"아름다운","big":"큰","bigger":"더 큰","block":"막다","blue":"파란; 블루","bright":"밝은","but":"하지만","buy":"사다","can":"~할 수 있다","carry":"가지고 다니다","cartoon":"만화","centers":"센터, 상가","character":"캐릭터","characters":"캐릭터들","chopsticks":"젓가락","clip-on":"집게형(귀를 안 뚫어도 되는)","clippers":"깎는 도구","colorful":"알록달록한","colors":"색깔들","come":"(상품이) 나오다","comfortable":"편안한","computers":"컴퓨터들","convenience":"편리함 (convenience store: 편의점)","cool":"시원한; 멋진","cute":"귀여운","daiso":"다이소","dance":"춤, 댄스","day":"날, 하루","designs":"디자인들","dishes":"접시들, 설거지거리","don't":"~하지 않다","dongdaemun":"동대문","dry":"마르다","earmuffs":"귀마개","earphones":"이어폰","earrings":"귀걸이","ears":"귀들","easy":"쉬운","eight":"8, 여덟","eighty":"80","electronics":"전자제품","every":"매, 모든","eyebrows":"눈썹","eyeglass":"안경","eyelashes":"속눈썹","eyes":"눈들","false":"가짜의, 인조","festivals":"축제들","fifty":"50","find":"찾다","five":"5, 다섯","flat":"납작한","flip-flops":"쪼리, 슬리퍼","fluffy":"폭신한","for":"~을 위해, ~동안","forty":"40","four":"4, 넷","from":"~으로부터","fun":"재미있는","gangnam":"강남","get":"얻다, 맞추다","gifts":"선물들","glasses":"안경","gloves":"장갑","good":"좋은","handles":"손잡이들","hands":"손들","have":"가지고 있다","hearts":"하트 모양들","help":"돕다","hot":"더운, 뜨거운","hour":"1시간","house":"집","how":"얼마나, 어떻게","hundred":"100, 백","hundreds":"수백","i":"나, 저","in":"~안에, ~에서","insadong":"인사동","inside":"~안에서","jeans":"청바지","k-pop":"케이팝","keep":"유지하다 (keep warm: 따뜻하게 하다)","kids":"아이들","kimchi":"김치","korea":"한국","korean":"한국의","koreans":"한국 사람들","last":"오래가다","light":"가벼운; 빛","like":"~처럼","long":"긴, 오래","look":"~해 보이다","make":"만들다","many":"많은","market":"시장","metal":"금속, 쇠","mother-of-pearl":"자개","much":"많이 (How much: 얼마)","myeongdong":"명동","nail":"손톱","near":"~근처에","need":"필요하다","new":"새로운","nine":"9, 아홉","ninety":"90","now":"지금, 요즘","of":"~의","often":"자주, 흔히","old":"오래된","olive":"올리브 (Olive Young: 올리브영)","on":"~위에","one":"1, 하나","or":"또는","pair":"한 쌍, 한 켤레","pairs":"쌍들, 켤레들","pajamas":"잠옷","patterns":"무늬들","people":"사람들","phone":"휴대폰","phones":"휴대폰들","pick":"집다 (pick up: 집어 올리다)","pierced":"뚫은","pink":"분홍색의","pool":"수영장","popular":"인기 있는","protect":"보호하다","quickly":"빨리","real":"진짜의","red":"빨간","rubber":"고무","safe":"안전한","school":"학교","scissors":"가위","seven":"7, 일곱","seventy":"70","shape":"다듬다; 모양","shapes":"모양들","sharp":"날카로운","shoe":"신발","shoelaces":"신발끈","shoemarker":"슈마커 (신발가게)","shop":"가게","shopping":"쇼핑","shops":"가게들","shorts":"반바지","shows":"공연들","six":"6, 여섯","sixty":"60","slippers":"슬리퍼, 실내화","small":"작은","sneakers":"운동화","so":"그래서","socks":"양말","soft":"부드러운","some":"어떤 것들은","souvenir":"기념품","spao":"스파오 (옷가게)","sports":"운동","stars":"별들","stationery":"문구","stores":"가게들","street":"거리","strong":"튼튼한","students":"학생들","styles":"스타일들","summers":"여름들","sun":"해, 햇빛","sunglasses":"선글라스","supermarkets":"마트들","swimming":"수영","ten":"10, 열","the":"그 (정해진 것)","their":"그들의","them":"그것들을","these":"이것들","they":"그것들은","they're":"그것들은 ~이다 (They are)","things":"물건들","thirty":"30","thousand":"1,000, 천","three":"3, 셋","time":"시간","to":"~에, ~하기 위해","top":"위쪽","topten":"탑텐 (옷가게)","touch":"터치","tourists":"관광객들","tweezers":"족집게, 핀셋","twenty":"20","two":"2, 둘","underground":"지하의","uniqlo":"유니클로 (옷가게)","up":"위로","use":"사용하다","usually":"보통","very":"아주, 매우","walking":"걷기","want":"원하다","warm":"따뜻한","wash":"씻다","wear":"입다, 신다, 쓰다","wide":"넓은, 통이 큰","winter":"겨울","with":"~와 함께, ~로","won":"원 (한국 돈)","years":"년, 해들","you":"너, 여러분","young":"젊은 (Olive Young: 올리브영)","your":"너의","10,000":"10,000 (만)","excuse":"실례하다 (Excuse me: 실례합니다)","me":"나를, 저를","where":"어디에서","could":"~해 주시겠어요? (공손하게)","tell":"말하다, 알려 주다","sure":"물론이죠","great":"좋아요, 아주 좋은","i'll":"나는 ~할게요 (I will)","take":"사다, 가져가다","please":"주세요, 부탁해요","that":"그것","will":"~일 것이다","be":"~이다"
 };
 function meaning(word) {
   const w = word.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9']+$/g, "");
@@ -575,7 +570,6 @@ const storesOf = it => [...new Set(it.where.map(w => w[0]))];
 const byId = id => ITEMS.find(x => x.id === id);
 function sing(en) { return /(ss|sh|ch|x)es$/.test(en) ? en.slice(0, -2) : en.replace(/s$/, ""); }
 const sayBtn = (text, label = "듣기") => `<button class="speak" type="button" data-say="${esc(text)}" aria-label="${esc(label)}">🔊</button>`;
-const lvTag = it => `<span class="lvtag l${LEVEL[it.id]}">${LV_NAME[LEVEL[it.id]]}</span>`;
 /* wrap every English word so it can be clicked */
 const wordsHTML = text => esc(text).split(/(\s+)/).map(t => /\S/.test(t) ? `<span class="w" data-w="${t}">${t}</span>` : t).join("");
 function photoHTML(it, cls = "photo") {
@@ -657,9 +651,10 @@ function updateMineCount() { $("#mineCount").textContent = picked.length; }
 const state = { lv: 1, store: "all" };
 try { const l = +localStorage.getItem("pps-lv"); if (l >= 1 && l <= 3) state.lv = l; } catch (e) {}
 document.querySelectorAll(".lv").forEach(b => b.onclick = () => {
-  state.lv = +b.dataset.lv; state.store = "all";
+  state.lv = +b.dataset.lv;
   try { localStorage.setItem("pps-lv", state.lv); } catch (e) {}
-  renderGrid();
+  renderGrid(); renderMine(); drawAllNotebooks();
+  toast(`${LV_NAME[state.lv]} 문장으로 바꿨어요`);
 });
 function buildStoreFilter() {
   const sf = $("#storeFilter");
@@ -673,19 +668,13 @@ function buildStoreFilter() {
 }
 function renderGrid() {
   document.querySelectorAll(".lv").forEach(b => b.setAttribute("aria-pressed", +b.dataset.lv === state.lv));
-  const inLevel = ITEMS.filter(it => LEVEL[it.id] === state.lv);
-  document.querySelectorAll("#storeFilter .chip").forEach(b => {
-    const k = b.dataset.store;
-    b.hidden = k !== "all" && !inLevel.some(it => storesOf(it).includes(k));
-    b.setAttribute("aria-pressed", k === state.store);
-  });
-  const list = inLevel.filter(it => state.store === "all" || storesOf(it).includes(state.store));
-  $("#count").textContent = `${LV_NAME[state.lv]} 물건 ${list.length}개 · 장바구니 ${picked.length}개`;
+  document.querySelectorAll("#storeFilter .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.store === state.store));
+  const list = ITEMS.filter(it => state.store === "all" || storesOf(it).includes(state.store));
+  $("#count").textContent = `물건 ${list.length}개 · ${LV_NAME[state.lv]} 문장 · 장바구니 ${picked.length}개`;
   $("#grid").innerHTML = list.map(it => {
     const on = picked.includes(it.id);
     return `<article class="card">
       <button class="open" type="button" data-id="${it.id}" aria-label="${esc(it.en)} 자세히 보기"></button>
-      ${lvTag(it)}
       <button class="heart" type="button" data-pick="${it.id}" aria-label="${on ? "장바구니에서 빼기" : "장바구니에 담기"}">${on ? "♥" : "♡"}</button>
       ${photoHTML(it)}
       <div class="card-body">
@@ -694,7 +683,7 @@ function renderGrid() {
         <span class="ko">${esc(it.ko)}</span>
         <span class="price">${won(it.price)}<small>보통 ${esc(it.range)}</small></span>
         <div class="card-actions">
-          ${sayBtn(`How much are the ${it.en}? They're ${priceWords(it.price)}.`, it.en + " 듣기")}
+          ${sayBtn(talkFor(it).map(x => x.say).join(" "), it.en + " 듣기")}
           <button class="cart-btn${on ? " on" : ""}" type="button" data-pick="${it.id}">${on ? "✓ 담았어요" : "🛒 담기"}</button>
         </div>
       </div>
@@ -711,7 +700,6 @@ $("#grid").addEventListener("click", e => {
 const sheet = $("#sheet");
 function openSheet(id) {
   const it = byId(id);
-  const q = `How much are the ${it.en}?`, a = `They're ${priceWords(it.price)}.`;
   const two = it.unit.replace("a pair", "two pairs");
   const tip = it.kind === "always"
     ? `<b>${esc(it.en)}</b>는 항상 복수형! ‘a ${esc(sing(it.en))}’라고 하지 않고 <b>${esc(it.unit)}</b>라고 해요.`
@@ -721,7 +709,6 @@ function openSheet(id) {
     <div class="sheet">
       <div class="sheet-photo">
         <img src="images/${it.id}.jpg" alt="${esc(it.en)}" data-emoji="${it.emoji}">
-        ${lvTag(it)}
         <button class="x" type="button" data-close aria-label="닫기">✕</button>
       </div>
       <div class="sheet-head">
@@ -731,8 +718,7 @@ function openSheet(id) {
       </div>
       <div class="row"><span class="price" style="font-size:26px;color:var(--accent)">${won(it.price)}</span><span style="color:var(--muted);font-size:14px">보통 ${esc(it.range)}</span></div>
       <div class="talk">
-        <div class="bubble"><span class="who">🙋</span><span class="txt">${wordsHTML(q)}</span>${sayBtn(q)}</div>
-        <div class="bubble b"><span class="who">🧑‍💼</span><span class="txt">${wordsHTML(`They're ${won(it.price).replace("원", " won")}.`)}<small>${esc(priceWords(it.price))}</small></span>${sayBtn(a)}</div>
+        ${talkFor(it).map(x => `<div class="bubble${x.clerk ? " b" : ""}"><span class="who">${x.clerk ? "🧑‍💼" : "🙋"}</span><span class="txt">${wordsHTML(x.say)}<small>${esc(x.ko)}</small></span>${sayBtn(x.say)}</div>`).join("")}
       </div>
       <button class="pick-btn${on ? " on" : ""}" type="button" id="pickBtn">${on ? "✓ 장바구니에 담았어요 (누르면 빼기)" : "🛒 이 물건 장바구니에 담기"}</button>
       <a class="go" href="#mine" id="goMine"${on ? "" : " hidden"}>장바구니에서 영어노트로 연습하기 →</a>
@@ -813,21 +799,37 @@ function drawSentence(el) {
 }
 function drawAllNotebooks() { document.querySelectorAll("#mineList .sent").forEach(drawSentence); }
 
-/* sentences grow with the item's level */
-function sentencesFor(it) {
-  const lv = LEVEL[it.id];
-  const P = priceWords(it.price);
-  const sec = [];
-  const price = [
-    { segs: [{ t: "How much are the " }, { t: it.en, hl: true, blank: true }, { t: "?" }], ko: `${it.ko} 얼마예요?` },
-    { segs: [{ t: "They're " }, { t: P, hl: true, blank: true }, { t: "." }], ko: `${won(it.price)}이에요.` }
+/* same items and prices at every level; only the sentences change */
+function priceSection(it, lv = state.lv) {
+  const P = priceWords(it.price), en = it.en, ko = it.ko;
+  const two = it.unit.replace("a pair", "two pairs");
+  if (lv === 1) return [
+    { segs: [{ t: "How much are the " }, { t: en, hl: true, blank: true }, { t: "?" }], ko: `${ko} 얼마예요?` },
+    { segs: [{ t: "They're " }, { t: P, hl: true, blank: true }, { t: "." }], ko: `${won(it.price)}이에요.`, clerk: true }
   ];
-  if (lv >= 2) price.push({ segs: [{ t: "I want to buy " }, { t: it.unit, hl: true, blank: true }, { t: "." }], ko: `${it.ko} 하나 사고 싶어요.` });
-  sec.push(["가격 묻고 답하기", price]);
-  if (lv >= 2) sec.push(["어디서 살 수 있나요?", it.where.slice(0, lv >= 3 ? 9 : 1).map(([, name, , p, en]) => ({
-    segs: [{ t: "You can buy them at " }, { t: en, hl: true, blank: true }, { t: "." }],
-    ko: `${name}에서 살 수 있어요. (${p})`
-  }))]);
+  if (lv === 2) return [
+    { segs: [{ t: "Excuse me. How much are these " }, { t: en, hl: true, blank: true }, { t: "?" }], ko: `실례합니다. 이 ${ko} 얼마예요?` },
+    { segs: [{ t: "They're " }, { t: P, hl: true, blank: true }, { t: "." }], ko: `${won(it.price)}이에요.`, clerk: true },
+    { segs: [{ t: "I want to buy " }, { t: it.unit, hl: true, blank: true }, { t: ", please." }], ko: `${ko} 하나 주세요.` }
+  ];
+  return [
+    { segs: [{ t: "Excuse me. Could you tell me how much these " }, { t: en, hl: true, blank: true }, { t: " are?" }], ko: `실례합니다. 이 ${ko} 얼마인지 알려 주시겠어요?` },
+    { segs: [{ t: "Sure! They're " }, { t: P, hl: true, blank: true }, { t: "." }], ko: `물론이죠! ${won(it.price)}이에요.`, clerk: true },
+    { segs: [{ t: "Great. I'll take " }, { t: two, hl: true, blank: true }, { t: ", please." }], ko: `좋아요. ${ko} 두 개 살게요.` },
+    { segs: [{ t: "That will be " }, { t: priceWords(it.price * 2), hl: true, blank: true }, { t: "." }], ko: `모두 ${won(it.price * 2)}입니다.`, clerk: true }
+  ];
+}
+const talkFor = it => priceSection(it).map(x => ({ say: x.segs.map(s => s.t).join(""), ko: x.ko, clerk: !!x.clerk }));
+function sentencesFor(it) {
+  const lv = state.lv;
+  const sec = [["가격 묻고 답하기", priceSection(it, lv)]];
+  if (lv >= 2) sec.push(["어디서 살 수 있나요?", [
+    { segs: [{ t: "Where can I buy " }, { t: it.en, hl: true, blank: true }, { t: "?" }], ko: `${it.ko}는 어디서 살 수 있어요?` },
+    ...it.where.slice(0, lv >= 3 ? 9 : 1).map(([, name, , p, en]) => ({
+      segs: [{ t: "You can buy them at " }, { t: en, hl: true, blank: true }, { t: "." }],
+      ko: `${name}에서 살 수 있어요. (${p})`
+    }))
+  ]]);
   if (lv >= 3) sec.push(["물건의 특징", it.features.map(([e, k]) => ({ segs: [{ t: e }], ko: k }))]);
   return sec;
 }
@@ -835,7 +837,7 @@ function renderMine() {
   const box = $("#mineList");
   $("#playAllMine").disabled = !picked.length;
   const total = picked.reduce((s, id) => s + byId(id).price, 0);
-  $("#cartSum").innerHTML = picked.length ? `🛒 ${picked.length}개 · 합계 <b>${won(total)}</b>` : "🛒 장바구니가 비어 있어요";
+  $("#cartSum").innerHTML = picked.length ? `🛒 ${picked.length}개 · 합계 <b>${won(total)}</b> · ${LV_NAME[state.lv]} 문장` : "🛒 장바구니가 비어 있어요";
   if (!picked.length) {
     box.innerHTML = `<div class="empty">
       <div class="cart-ico">🛒</div>
@@ -852,7 +854,7 @@ function renderMine() {
       <div class="mine-head">
         ${photoHTML(it)}
         <div>
-          <h2>${esc(it.en)} ${lvTag(it)}</h2>
+          <h2>${esc(it.en)}</h2>
           <div class="ko">${esc(it.ko)} · <b style="color:var(--accent)">${won(it.price)}</b></div>
           <div class="row">
             <button class="btn small" type="button" data-playitem="${id}">🔊 이 물건 문장 모두 듣기</button>
