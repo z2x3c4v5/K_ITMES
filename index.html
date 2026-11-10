@@ -150,7 +150,7 @@ section.view { display: grid; gap: 18px; }
 .card.picked { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
 .card .open { position: absolute; inset: 0; border: none; background: transparent; z-index: 1; border-radius: 14px; }
 .photo { aspect-ratio: 4 / 3; max-width: 100%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
-.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .photo .fallback { font-size: 64px; line-height: 1; }
 .card-body { padding: 12px 14px 14px; display: grid; gap: 6px; align-content: start; }
 .card .en-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
@@ -201,7 +201,7 @@ dialog::backdrop { background: rgba(8,20,18,.55); }
 .sheet { display: grid; gap: 16px; padding: 0 0 22px; }
 .sheet > :not(.sheet-photo) { margin-inline: 22px; }
 .sheet-photo { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
-.sheet-photo img { width: 100%; height: 100%; object-fit: cover; }
+.sheet-photo img { width: 100%; height: 100%; object-fit: contain; }
 .sheet-photo .fallback { font-size: 96px; line-height: 1; }
 .sheet-photo .x { position: absolute; top: 12px; right: 12px; }
 .sheet-head { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
@@ -357,7 +357,7 @@ footer { color: var(--muted); font-size: 13px; }
         <div class="count" id="count"></div>
       </div>
       <div class="grid" id="grid"></div>
-      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 노란 가격표는 말하기 연습용 대표 가격입니다.</footer>
+      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 노란 가격표는 말하기 연습용 대표 가격입니다. 물건 그림은 Canva로 만든 이미지예요.</footer>
     </section>
 
     <!-- MY ITEMS -->
@@ -684,8 +684,18 @@ function sing(en) { return /(ss|sh|ch|x)es$/.test(en) ? en.slice(0, -2) : en.rep
 const sayBtn = (text, label = "듣기") => `<button class="speak" type="button" data-say="${esc(text)}" aria-label="${esc(label)}">🔊</button>`;
 
 function photoHTML(it, cls = "photo") {
-  return `<div class="${cls}"><span class="fallback" role="img" aria-label="${esc(it.en)}">${it.emoji}</span></div>`;
+  return `<div class="${cls}"><img src="images/${it.id}.jpg" alt="${esc(it.en)}" loading="lazy" data-emoji="${it.emoji}"></div>`;
 }
+
+/* if an image cannot load, show the emoji instead */
+document.addEventListener("error", e => {
+  const img = e.target;
+  if (img.tagName === "IMG" && img.dataset.emoji) {
+    const s = document.createElement("span");
+    s.className = "fallback"; s.textContent = img.dataset.emoji; s.setAttribute("aria-hidden", "true");
+    img.replaceWith(s);
+  }
+}, true);
 
 function toast(msg) {
   const t = $("#toast"); t.textContent = msg; t.hidden = false;
@@ -794,7 +804,7 @@ function openSheet(id) {
   sheet.innerHTML = `
     <div class="sheet">
       <div class="sheet-photo">
-        <span class="fallback" role="img" aria-label="${esc(it.en)}">${it.emoji}</span>
+        <img src="images/${it.id}.jpg" alt="${esc(it.en)}" data-emoji="${it.emoji}">
         <button class="x" type="button" data-close aria-label="닫기">✕</button>
       </div>
       <div class="sheet-head">
