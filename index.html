@@ -151,7 +151,7 @@ section.view { display: grid; gap: 18px; }
 .card .open { position: absolute; inset: 0; border: none; background: transparent; z-index: 1; border-radius: 14px; }
 .photo { aspect-ratio: 4 / 3; max-width: 100%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
 .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.photo .fallback { font-size: 56px; }
+.photo .fallback { font-size: 64px; line-height: 1; }
 .card-body { padding: 12px 14px 14px; display: grid; gap: 6px; align-content: start; }
 .card .en-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .card .en { font-family: var(--f-display); font-size: 22px; line-height: 1.15; }
@@ -161,7 +161,7 @@ section.view { display: grid; gap: 18px; }
 .card .stores { font-size: 12px; color: var(--muted); }
 .picked-mark { position: absolute; top: 10px; left: 10px; z-index: 2; background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 9px; }
 
-.kind { font-size: 11px; font-weight: 700; border-radius: 6px; padding: 2px 7px; letter-spacing: .02em; }
+.kind { white-space: nowrap; font-size: 11px; font-weight: 700; border-radius: 6px; padding: 2px 7px; letter-spacing: .02em; }
 .kind.pair { background: var(--pair-bg); color: var(--pair); }
 .kind.always { background: var(--always-bg); color: var(--always); }
 
@@ -202,10 +202,8 @@ dialog::backdrop { background: rgba(8,20,18,.55); }
 .sheet > :not(.sheet-photo) { margin-inline: 22px; }
 .sheet-photo { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
 .sheet-photo img { width: 100%; height: 100%; object-fit: cover; }
-.sheet-photo .fallback { font-size: 90px; }
+.sheet-photo .fallback { font-size: 96px; line-height: 1; }
 .sheet-photo .x { position: absolute; top: 12px; right: 12px; }
-.sheet-photo .credit { position: absolute; left: 0; right: 0; bottom: 0; font-size: 11px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.6)); padding: 14px 12px 6px; }
-.sheet-photo .credit a { color: #fff; }
 .sheet-head { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 .sheet-head h2 { font-size: 32px; }
 .sheet-head .ko { color: var(--muted); width: 100%; margin-top: -6px; }
@@ -297,8 +295,6 @@ table.review tr:last-child td { border-bottom: none; }
 .st.new { background: var(--pair-bg); color: var(--pair); }
 .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .ex { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
-.credits { font-size: 12px; color: var(--muted); display: grid; gap: 3px; margin: 0; padding-left: 18px; }
-.credits a { color: var(--accent); }
 
 footer { color: var(--muted); font-size: 13px; }
 
@@ -361,7 +357,7 @@ footer { color: var(--muted); font-size: 13px; }
         <div class="count" id="count"></div>
       </div>
       <div class="grid" id="grid"></div>
-      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 노란 가격표는 말하기 연습용 대표 가격입니다. 사진은 Wikimedia Commons의 자유 이용 사진이며 출처는 🔍 물건 점검표 탭 맨 아래에 있어요.</footer>
+      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 노란 가격표는 말하기 연습용 대표 가격입니다.</footer>
     </section>
 
     <!-- MY ITEMS -->
@@ -417,10 +413,6 @@ footer { color: var(--muted); font-size: 13px; }
           <div class="ex"><span>39,000 → thirty-nine thousand won</span><button class="speak" type="button" data-say="thirty-nine thousand won" aria-label="듣기">🔊</button></div>
           <p>‘원’은 영어로 <b>won</b>이고, 숫자가 커도 <b>wons</b>라고 하지 않아요.</p>
         </div>
-      </div>
-      <div class="note">
-        <h2>사진 출처</h2>
-        <ol class="credits" id="credits"></ol>
       </div>
     </section>
 
@@ -650,9 +642,6 @@ const ITEMS = [
     ]}
 ];
 
-/* Photo credits: Wikimedia Commons (filled by build step) */
-const PHOTOS = {};
-
 const REMOVED = [
   ["hand warmers","핫팩","한 개씩 사는 물건이라 How much is the hand warmer?가 자연스러움"],
   ["batteries","건전지","한 개도 battery라 부름. 짝이 아님"],
@@ -695,17 +684,8 @@ function sing(en) { return /(ss|sh|ch|x)es$/.test(en) ? en.slice(0, -2) : en.rep
 const sayBtn = (text, label = "듣기") => `<button class="speak" type="button" data-say="${esc(text)}" aria-label="${esc(label)}">🔊</button>`;
 
 function photoHTML(it, cls = "photo") {
-  return `<div class="${cls}"><img src="images/${it.id}.jpg" alt="${esc(it.en)} 사진" loading="lazy" data-emoji="${it.emoji}"></div>`;
+  return `<div class="${cls}"><span class="fallback" role="img" aria-label="${esc(it.en)}">${it.emoji}</span></div>`;
 }
-/* if a photo is missing, show the emoji instead */
-document.addEventListener("error", e => {
-  const img = e.target;
-  if (img.tagName === "IMG" && img.dataset.emoji) {
-    const s = document.createElement("span");
-    s.className = "fallback"; s.textContent = img.dataset.emoji; s.setAttribute("aria-hidden", "true");
-    img.replaceWith(s);
-  }
-}, true);
 
 function toast(msg) {
   const t = $("#toast"); t.textContent = msg; t.hidden = false;
@@ -802,10 +782,6 @@ $("#grid").addEventListener("click", e => {
 
 /* ---------- detail sheet ---------- */
 const sheet = $("#sheet");
-function creditHTML(id) {
-  const p = PHOTOS[id];
-  return p ? `<div class="credit">사진: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.artist)}</a> · ${esc(p.license)}</div>` : "";
-}
 function openSheet(id) {
   const it = byId(id);
   const q = `How much are the ${it.en}?`;
@@ -818,9 +794,8 @@ function openSheet(id) {
   sheet.innerHTML = `
     <div class="sheet">
       <div class="sheet-photo">
-        <img src="images/${it.id}.jpg" alt="${esc(it.en)} 사진" data-emoji="${it.emoji}">
+        <span class="fallback" role="img" aria-label="${esc(it.en)}">${it.emoji}</span>
         <button class="x" type="button" data-close aria-label="닫기">✕</button>
-        ${creditHTML(it.id)}
       </div>
       <div class="sheet-head">
         <h2 id="sheetTitle">${esc(it.en)}</h2>
@@ -936,7 +911,7 @@ function renderMine() {
   if (!picked.length) {
     box.innerHTML = `<div class="empty">
       <div class="big">아직 고른 물건이 없어요</div>
-      <p style="margin:0;color:var(--muted)">🛒 물건 보기에서 사진을 누르고 <b>⭐ 이 물건으로 선택하기</b>를 눌러 보세요.<br>고른 물건마다 가격, 특징, 살 수 있는 곳 문장이 영어노트에 나와요.</p>
+      <p style="margin:0;color:var(--muted)">🛒 물건 보기에서 물건을 누르고 <b>⭐ 이 물건으로 선택하기</b>를 눌러 보세요.<br>고른 물건마다 가격, 특징, 살 수 있는 곳 문장이 영어노트에 나와요.</p>
       <div class="row" style="justify-content:center"><a class="btn" href="#shop">물건 고르러 가기</a><button class="btn ghost" type="button" id="sample">예시로 3개 담아 보기</button></div>
     </div>`;
     $("#sample").onclick = () => { picked = ["socks", "glasses", "chopsticks"]; savePicked(); updateMineCount(); renderGrid(); renderMine(); };
@@ -1029,10 +1004,6 @@ function renderReview() {
   REMOVED.forEach(([en, ko, why]) => rows.push(`<tr><td><span class="st out">제외</span></td><td><b>${esc(en)}</b></td><td>${sayBtn(en)}</td><td>${esc(ko)}</td><td>${esc(why)}</td></tr>`));
   ITEMS.filter(it => !KEPT.includes(it.id)).forEach(it => rows.push(`<tr><td><span class="st new">추가</span></td><td><b>${esc(it.en)}</b></td><td>${sayBtn(it.en)}</td><td>${esc(it.ko)}</td><td>${it.kind === "always" ? "항상 복수형" : "짝(pair)"} · ${esc(it.unit)}</td></tr>`));
   $("#reviewTable").innerHTML = `<thead><tr><th>결과</th><th>English</th><th>듣기</th><th>우리말</th><th>이유</th></tr></thead><tbody>${rows.join("")}</tbody>`;
-  $("#credits").innerHTML = ITEMS.map(it => {
-    const p = PHOTOS[it.id];
-    return p ? `<li>${esc(it.en)}: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.title)}</a> · ${esc(p.artist)} · ${esc(p.license)}</li>` : "";
-  }).join("");
 }
 
 /* ---------- routing ---------- */
