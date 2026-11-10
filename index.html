@@ -7,367 +7,305 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Jua&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
-/* Layout: a store shelf — sticky aisle tabs on top, photo cards wearing yellow price tags; chosen items move to a "my items" page where every sentence is written on 4-line English notebook paper. */
+/* Layout: a Korean shopping street — striped shop awning on top, level aisles (초급/중급/고급), product cards like a mall app with 원 prices and 담기 buttons; the 장바구니 page writes every sentence on 4-line English notebook paper. */
 :root {
-  --bg: #EAF2EF;
+  --bg: #FFF4F1;
   --surface: #FFFFFF;
-  --surface-2: #F4F8F6;
-  --line: #CFDDD8;
-  --ink: #12302B;
-  --muted: #56706A;
-  --accent: #0F7B6C;
+  --surface-2: #FFF0EC;
+  --line: #F3D9D2;
+  --ink: #2B1F24;
+  --muted: #7A6268;
+  --accent: #F0435A;
   --accent-ink: #FFFFFF;
-  --tag: #FFD84D;
-  --tag-ink: #3A2E00;
-  --pair: #2457B8;
-  --pair-bg: #E3ECFB;
-  --always: #B23C0B;
-  --always-bg: #FCE9DF;
-  --good: #16794A;
-  --good-bg: #DDF3E7;
-  --bad: #B42318;
-  --bad-bg: #FDE4E1;
+  --accent-soft: #FFE1E5;
+  --mint: #12A88F;
+  --mint-soft: #DDF5F0;
+  --sun: #FFCF33;
+  --sun-ink: #3A2C00;
+  --lv1: #22A06B; --lv1-soft: #E0F6EA;
+  --lv2: #E58A00; --lv2-soft: #FFF0D6;
+  --lv3: #7A4CE0; --lv3-soft: #EEE6FF;
   --photo-bg: #FFFFFF;
   --paper: #FFFDF6;
   --rule: #8DB0DC;
   --rule-mid: #B9CEE9;
   --rule-red: #E0605B;
   --pencil: #1F2A44;
-  --pencil-hl: #0F7B6C;
+  --pencil-hl: #D6304A;
   --margin-red: #F2B8B5;
-  --shadow: 0 1px 2px rgba(18,48,43,.06), 0 6px 18px rgba(18,48,43,.07);
+  --rec: #E5383B;
+  --shadow: 0 2px 4px rgba(120,40,50,.06), 0 10px 24px rgba(120,40,50,.08);
   --f-display: "Jua", "Noto Sans KR", system-ui, sans-serif;
   --f-body: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --f-note: "Andika", "Comic Sans MS", "Noto Sans KR", sans-serif;
+  --f-note: "Andika", "Comic Sans MS", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0E1917; --surface: #162522; --surface-2: #1C2E2A; --line: #2B423D;
-    --ink: #E5F0ED; --muted: #98AEA8; --accent: #4CCFB6; --accent-ink: #062520;
-    --tag: #F2C935; --tag-ink: #2A2100;
-    --pair: #8DB2F7; --pair-bg: #1D2C48; --always: #F7A274; --always-bg: #3A2418;
-    --good: #6FD9A0; --good-bg: #173527; --bad: #FF9C92; --bad-bg: #3D1C19;
-    --photo-bg: #F3F5F4;
-    --paper: #F4F1E6; --rule: #7FA2D0; --rule-mid: #AFC5E3; --rule-red: #D9524D;
-    --pencil: #1F2A44; --pencil-hl: #0B6A5D; --margin-red: #E7AAA6;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+    --bg: #1B1416; --surface: #261C1F; --surface-2: #31252A; --line: #44343A;
+    --ink: #F6ECEE; --muted: #B9A3A9; --accent: #FF6B7E; --accent-ink: #2A0710; --accent-soft: #4A2129;
+    --mint: #45D1B8; --mint-soft: #173A34; --sun: #F5C431; --sun-ink: #2A2000;
+    --lv1: #5BD69C; --lv1-soft: #173A2A; --lv2: #FFB547; --lv2-soft: #3D2C12; --lv3: #B497FF; --lv3-soft: #2E2547;
+    --photo-bg: #F7F2F3;
+    --paper: #F6F2E6; --pencil-hl: #C62840;
+    --shadow: 0 2px 4px rgba(0,0,0,.3), 0 10px 24px rgba(0,0,0,.3);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0E1917; --surface: #162522; --surface-2: #1C2E2A; --line: #2B423D;
-  --ink: #E5F0ED; --muted: #98AEA8; --accent: #4CCFB6; --accent-ink: #062520;
-  --tag: #F2C935; --tag-ink: #2A2100;
-  --pair: #8DB2F7; --pair-bg: #1D2C48; --always: #F7A274; --always-bg: #3A2418;
-  --good: #6FD9A0; --good-bg: #173527; --bad: #FF9C92; --bad-bg: #3D1C19;
-  --photo-bg: #F3F5F4;
-  --paper: #F4F1E6; --rule: #7FA2D0; --rule-mid: #AFC5E3; --rule-red: #D9524D;
-  --pencil: #1F2A44; --pencil-hl: #0B6A5D; --margin-red: #E7AAA6;
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+  --bg: #1B1416; --surface: #261C1F; --surface-2: #31252A; --line: #44343A;
+  --ink: #F6ECEE; --muted: #B9A3A9; --accent: #FF6B7E; --accent-ink: #2A0710; --accent-soft: #4A2129;
+  --mint: #45D1B8; --mint-soft: #173A34; --sun: #F5C431; --sun-ink: #2A2000;
+  --lv1: #5BD69C; --lv1-soft: #173A2A; --lv2: #FFB547; --lv2-soft: #3D2C12; --lv3: #B497FF; --lv3-soft: #2E2547;
+  --photo-bg: #F7F2F3;
+  --paper: #F6F2E6; --pencil-hl: #C62840;
+  --shadow: 0 2px 4px rgba(0,0,0,.3), 0 10px 24px rgba(0,0,0,.3);
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { margin: 0; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--f-body);
-  font-size: 15px;
-  line-height: 1.6;
-}
-body::before {
-  content: ""; position: fixed; inset: 0 0 auto;
-  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface);
-}
-.wrap {
-  max-width: 1120px; margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-}
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 h1, h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1.2; text-wrap: balance; margin: 0; }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-/* header */
-header.top { background: var(--surface); border-bottom: 1px solid var(--line); }
-header.top .wrap { padding-block: 22px 18px; display: grid; gap: 6px; }
-.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
-.hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
-h1 { font-size: clamp(28px, 5vw, 40px); }
-h1 .blank { display: inline-block; min-width: 3.2em; border-bottom: 3px solid var(--tag); color: var(--accent); }
-.lede { margin: 0; color: var(--muted); max-width: 62ch; }
+/* shop sign */
+.awning { height: 22px; background: repeating-linear-gradient(90deg, var(--accent) 0 36px, #FFFFFF 36px 72px); position: relative; }
+.awning::after { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: radial-gradient(circle at 18px -2px, var(--accent) 12px, transparent 13px) 0 0 / 72px 10px repeat-x, radial-gradient(circle at 54px -2px, #FFFFFF 12px, transparent 13px) 0 0 / 72px 10px repeat-x; }
+header.top { background: var(--surface); }
+header.top .wrap { padding-block: 26px 18px; display: grid; gap: 8px; }
+.sign-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.shopname { display: inline-flex; align-items: center; gap: 6px; background: var(--ink); color: var(--bg); border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+h1 { font-size: clamp(28px, 5.4vw, 44px); }
+h1 .blank { display: inline-block; min-width: 3.4em; color: var(--accent); border-bottom: 4px dotted var(--sun); }
+.lede { margin: 0; color: var(--muted); max-width: 60ch; }
 
-nav.tabs {
-  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
-  background: var(--surface); border-bottom: 1px solid var(--line);
-}
-nav.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-nav.tabs a {
-  flex: none; text-decoration: none; color: var(--muted);
-  padding: 12px 14px; font-weight: 700; font-size: 14px;
-  border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 6px;
-}
-nav.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
-.badge { background: var(--tag); color: var(--tag-ink); font-family: var(--f-mono); font-size: 12px; border-radius: 999px; padding: 0 7px; min-width: 20px; text-align: center; }
+nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); box-shadow: 0 1px 0 var(--line); }
+nav.tabs .wrap { display: flex; gap: 6px; padding-block: 8px; }
+nav.tabs a { flex: 1; max-width: 240px; text-decoration: none; color: var(--muted); padding: 10px 14px; font-weight: 700; font-size: 15px; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+nav.tabs a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.badge { background: var(--sun); color: var(--sun-ink); font-size: 12px; border-radius: 999px; padding: 0 8px; min-width: 22px; text-align: center; font-weight: 900; }
 
-main .wrap { padding-block: 22px 56px; }
+main .wrap { padding-block: 22px 64px; }
 section.view { display: grid; gap: 18px; }
 
-/* listen buttons */
-.speak {
-  border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
-  min-width: 34px; height: 34px; padding: 0 10px; font-size: 14px; line-height: 1;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: none;
-}
-.speak:hover { border-color: var(--accent); }
-.speak.playing { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+/* level aisles */
+.levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.lv { border: 2px solid var(--line); background: var(--surface); border-radius: 20px; padding: 14px 16px; text-align: left; display: grid; gap: 2px; box-shadow: var(--shadow); }
+.lv .t { font-family: var(--f-display); font-size: 22px; display: flex; align-items: center; gap: 8px; }
+.lv .d { font-size: 13px; color: var(--muted); }
+.lv[data-lv="1"][aria-pressed="true"] { border-color: var(--lv1); background: var(--lv1-soft); }
+.lv[data-lv="2"][aria-pressed="true"] { border-color: var(--lv2); background: var(--lv2-soft); }
+.lv[data-lv="3"][aria-pressed="true"] { border-color: var(--lv3); background: var(--lv3-soft); }
+.lvtag { font-size: 11px; font-weight: 900; border-radius: 999px; padding: 1px 9px; white-space: nowrap; }
+.lvtag.l1 { background: var(--lv1-soft); color: var(--lv1); }
+.lvtag.l2 { background: var(--lv2-soft); color: var(--lv2); }
+.lvtag.l3 { background: var(--lv3-soft); color: var(--lv3); }
 
-/* filters */
-.filters { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
-.chipgroup { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.chipgroup > span { font-size: 12px; color: var(--muted); font-weight: 700; margin-right: 2px; }
-.chip {
-  border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
-  padding: 5px 12px; font-size: 13px; font-weight: 500;
-}
-.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.filters > span { font-size: 12px; color: var(--muted); font-weight: 700; margin-right: 4px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 13px; font-size: 13px; font-weight: 500; }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .count { font-size: 13px; color: var(--muted); margin-left: auto; }
 
-/* item grid */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
-.card {
-  position: relative; background: var(--surface);
-  border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
-  display: grid; grid-template-rows: auto 1fr; box-shadow: var(--shadow);
-  transition: transform .15s ease;
-}
-.card:hover { transform: translateY(-2px); }
-.card.picked { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
-.card .open { position: absolute; inset: 0; border: none; background: transparent; z-index: 1; border-radius: 14px; }
+/* product cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.card { position: relative; background: var(--surface); border-radius: 20px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; box-shadow: var(--shadow); transition: transform .15s ease; }
+.card:hover { transform: translateY(-3px); }
+.card .open { position: absolute; inset: 0; border: none; background: transparent; z-index: 1; border-radius: 20px; }
 .photo { aspect-ratio: 4 / 3; max-width: 100%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
 .photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .photo .fallback { font-size: 64px; line-height: 1; }
-.card-body { padding: 12px 14px 14px; display: grid; gap: 6px; align-content: start; }
-.card .en-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.card .en { font-family: var(--f-display); font-size: 22px; line-height: 1.15; }
-.card .speak { position: relative; z-index: 2; }
-.card .ko { font-size: 13px; color: var(--muted); margin-top: -4px; }
-.card .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.card .stores { font-size: 12px; color: var(--muted); }
-.picked-mark { position: absolute; top: 10px; left: 10px; z-index: 2; background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 9px; }
+.card-body { padding: 12px 14px 14px; display: grid; gap: 4px; align-content: start; }
+.card .stores { display: flex; flex-wrap: wrap; gap: 4px; }
+.store { font-size: 11px; font-weight: 700; border-radius: 6px; padding: 1px 6px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+.card .en { font-family: var(--f-display); font-size: 21px; line-height: 1.2; }
+.card .ko { font-size: 13px; color: var(--muted); margin-top: -2px; }
+.price { font-weight: 900; font-size: 20px; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.price small { font-weight: 500; font-size: 12px; color: var(--muted); margin-left: 4px; }
+.card-actions { display: flex; gap: 6px; margin-top: 6px; position: relative; z-index: 2; }
+.cart-btn { flex: 1; border: 2px solid var(--accent); background: var(--surface); color: var(--accent); border-radius: 12px; padding: 6px 8px; font-weight: 700; font-size: 13px; }
+.cart-btn.on { background: var(--accent); color: var(--accent-ink); }
+.card .lvtag { position: absolute; top: 10px; left: 10px; z-index: 2; }
+.heart { position: absolute; top: 8px; right: 8px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; border: none; background: rgba(255,255,255,.9); font-size: 17px; line-height: 1; box-shadow: 0 1px 4px rgba(0,0,0,.12); color: #F0435A; }
 
-.kind { white-space: nowrap; font-size: 11px; font-weight: 700; border-radius: 6px; padding: 2px 7px; letter-spacing: .02em; }
-.kind.pair { background: var(--pair-bg); color: var(--pair); }
-.kind.always { background: var(--always-bg); color: var(--always); }
+.note { background: var(--surface); border-radius: 20px; padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; box-shadow: var(--shadow); }
+.note b { color: var(--accent); }
 
-/* price tag */
-.tag {
-  position: absolute; top: 12px; right: -6px; z-index: 2;
-  background: var(--tag); color: var(--tag-ink);
-  font-family: var(--f-mono); font-weight: 600; font-size: 13px;
-  padding: 4px 10px 4px 18px; border-radius: 4px 0 0 4px;
-  clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
-  font-variant-numeric: tabular-nums;
-}
-.tag::before {
-  content: ""; position: absolute; left: 7px; top: 50%; width: 5px; height: 5px;
-  margin-top: -2.5px; border-radius: 50%; background: var(--surface);
-}
-.tag.big { position: relative; top: auto; right: auto; font-size: 20px; padding: 6px 16px 6px 26px; clip-path: polygon(14px 0, 100% 0, 100% 100%, 14px 100%, 0 50%); display: inline-block; }
-.tag.big::before { left: 10px; width: 7px; height: 7px; margin-top: -3.5px; }
+/* buttons */
+.speak, .mic, .play { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; min-width: 36px; height: 36px; padding: 0 10px; font-size: 15px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: none; }
+.speak:hover, .mic:hover, .play:hover { border-color: var(--accent); }
+.speak.playing { background: var(--mint); color: #fff; border-color: var(--mint); }
+.mic.rec { background: var(--rec); border-color: var(--rec); color: #fff; animation: pulse 1s ease-in-out infinite; }
+.play { border-color: var(--mint); color: var(--mint); font-weight: 700; font-size: 13px; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(229,56,59,.25); } }
+.btn { border: none; background: var(--accent); color: var(--accent-ink); border-radius: 14px; padding: 11px 18px; font-weight: 700; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
+.btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.btn.small { padding: 7px 12px; font-size: 13px; border-radius: 12px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
-/* panel / note */
-.note {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-  padding: 16px 18px; display: grid; gap: 8px;
-}
-.note h2 { font-size: 22px; }
-.note p { margin: 0; }
-.legend { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; }
-.legend div { display: flex; gap: 8px; align-items: baseline; }
+/* clickable words */
+.w { cursor: pointer; border-radius: 4px; }
+span.w:hover { background: var(--sun); color: var(--sun-ink); }
+svg .w:hover text { fill: var(--pencil-hl); }
+.wpop { position: fixed; z-index: 30; background: var(--ink); color: var(--bg); border-radius: 14px; padding: 10px 12px 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); display: flex; gap: 12px; align-items: center; max-width: min(320px, calc(100vw - 24px)); }
+.wpop .we { font-family: var(--f-note); font-size: 20px; font-weight: 700; }
+.wpop .wk { font-size: 14px; }
+.wpop .speak { background: transparent; color: var(--bg); border-color: rgba(255,255,255,.35); }
 
 /* detail sheet */
-dialog {
-  border: none; padding: 0; border-radius: 18px; background: var(--surface); color: var(--ink);
-  width: min(640px, calc(100vw - 24px)); max-height: calc(100dvh - 32px);
-  box-shadow: 0 20px 60px rgba(0,0,0,.3);
-}
-dialog::backdrop { background: rgba(8,20,18,.55); }
+dialog { border: none; padding: 0; border-radius: 24px; background: var(--surface); color: var(--ink); width: min(620px, calc(100vw - 24px)); max-height: calc(100dvh - 32px); box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+dialog::backdrop { background: rgba(30,10,15,.55); }
 .sheet { display: grid; gap: 16px; padding: 0 0 22px; }
 .sheet > :not(.sheet-photo) { margin-inline: 22px; }
 .sheet-photo { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--photo-bg); display: grid; place-items: center; overflow: hidden; }
 .sheet-photo img { width: 100%; height: 100%; object-fit: contain; }
 .sheet-photo .fallback { font-size: 96px; line-height: 1; }
 .sheet-photo .x { position: absolute; top: 12px; right: 12px; }
-.sheet-head { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.sheet-photo .lvtag { position: absolute; top: 14px; left: 14px; font-size: 13px; }
+.x { border: none; background: rgba(255,255,255,.9); color: #2B1F24; border-radius: 50%; width: 38px; height: 38px; font-size: 18px; line-height: 1; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+.sheet-head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .sheet-head h2 { font-size: 32px; }
-.sheet-head .ko { color: var(--muted); width: 100%; margin-top: -6px; }
-.x { border: 1px solid var(--line); background: var(--surface-2); border-radius: 50%; width: 36px; height: 36px; font-size: 18px; line-height: 1; }
-.block { display: grid; gap: 6px; }
-.block h3 { font-family: var(--f-body); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sheet-head .ko { color: var(--muted); width: 100%; margin-top: -8px; }
+.block { display: grid; gap: 8px; }
+.block h3 { font-size: 18px; }
 .feat { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-.feat li { display: grid; grid-template-columns: 1fr auto; gap: 0 10px; align-items: center; }
+.feat li { display: grid; grid-template-columns: 1fr auto; gap: 0 10px; align-items: center; background: var(--surface-2); border-radius: 14px; padding: 8px 10px 8px 14px; }
 .feat .e { font-weight: 500; }
 .feat .k { font-size: 13px; color: var(--muted); grid-column: 1; }
 .feat .speak { grid-column: 2; grid-row: 1 / span 2; }
-.where { width: 100%; border-collapse: collapse; font-size: 14px; }
-.where td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: middle; }
-.where td:first-child { font-weight: 700; padding-right: 10px; }
-.where td.p { font-family: var(--f-mono); font-size: 13px; text-align: right; white-space: nowrap; padding-left: 10px; font-variant-numeric: tabular-nums; }
-.where td.s { width: 44px; text-align: right; padding-left: 8px; }
-.where .sub { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+.where { display: grid; gap: 8px; }
+.shoprow { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; border: 1px dashed var(--line); border-radius: 14px; padding: 8px 10px 8px 14px; }
+.shoprow b { display: block; }
+.shoprow .sub { font-size: 12px; color: var(--muted); }
+.shoprow .p { font-weight: 900; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.talk { display: grid; gap: 8px; }
+.bubble { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.bubble .who { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; background: var(--surface-2); }
+.bubble .txt { background: var(--surface-2); border-radius: 16px 16px 16px 4px; padding: 8px 14px; font-size: 17px; font-weight: 500; }
+.bubble.b .txt { background: var(--mint-soft); border-radius: 16px 16px 4px 16px; }
+.bubble .txt small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.tip { font-size: 14px; background: var(--sun); color: var(--sun-ink); border-radius: 14px; padding: 10px 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+.tip .speak { background: rgba(255,255,255,.6); }
+.pick-btn { border: none; background: var(--accent); color: var(--accent-ink); border-radius: 16px; padding: 14px 16px; font-weight: 900; font-size: 17px; }
+.pick-btn.on { background: var(--accent-soft); color: var(--accent); }
+.go { text-align: center; font-size: 14px; color: var(--accent); font-weight: 700; text-decoration: none; }
 
-.dialog-box { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; display: grid; gap: 10px; }
-.line { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; }
-.who { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; background: var(--accent); color: var(--accent-ink); }
-.who.b { background: var(--tag); color: var(--tag-ink); }
-.say { font-size: 17px; font-weight: 500; }
-.say b { color: var(--accent); }
-.say small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
-.tip { font-size: 14px; background: var(--always-bg); color: var(--ink); border-radius: 10px; padding: 10px 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; }
-.tip.pairtip { background: var(--pair-bg); }
-
-.pick-btn { border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 12px; padding: 12px 16px; font-weight: 700; font-size: 16px; width: 100%; }
-.pick-btn.on { background: var(--surface); color: var(--accent); }
-.sheet-actions { display: grid; gap: 8px; }
-.sheet-actions .go { text-align: center; font-size: 14px; color: var(--accent); font-weight: 700; text-decoration: none; }
-
-.btn { border: none; background: var(--accent); color: var(--accent-ink); border-radius: 12px; padding: 11px 18px; font-weight: 700; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; }
-.btn.ghost { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); }
-.btn.small { padding: 7px 12px; font-size: 13px; border-radius: 10px; }
-.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-
-/* my items */
-.mine-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+/* cart */
+.cart-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; background: var(--surface); border-radius: 20px; padding: 12px 14px; box-shadow: var(--shadow); }
+.cart-bar .sum { font-weight: 700; }
+.cart-bar .sum b { color: var(--accent); font-size: 18px; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
-.seg button { border: none; background: transparent; padding: 8px 14px; font-size: 13px; font-weight: 700; color: var(--muted); }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.seg button { border: none; background: transparent; padding: 8px 12px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .mine-list { display: grid; gap: 22px; }
-.mine-item { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }
-.mine-head { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 16px; align-items: center; border-bottom: 1px solid var(--line); }
-.mine-head .photo { border-radius: 12px; }
-.mine-head h2 { font-size: 28px; }
+.mine-item { background: var(--surface); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow); }
+.mine-head { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 16px; align-items: center; }
+.mine-head .photo { border-radius: 16px; border: 1px solid var(--line); }
+.mine-head h2 { font-size: 28px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mine-head .ko { color: var(--muted); font-size: 14px; }
 .mine-head .row { margin-top: 6px; }
-.mine-head .tag.big { font-size: 16px; }
-
-.notebook {
-  background: var(--paper);
-  background-image: linear-gradient(90deg, transparent 0 46px, var(--margin-red) 46px 48px, transparent 48px);
-  padding: 18px 16px 22px 60px; display: grid; gap: 4px; color: var(--pencil);
-}
-.nb-sec { font-family: var(--f-body); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6B7A93; margin: 10px 0 0; }
+.howto { font-size: 12px; color: var(--muted); padding: 0 16px 10px; }
+.notebook { background: var(--paper); background-image: linear-gradient(90deg, transparent 0 46px, var(--margin-red) 46px 48px, transparent 48px); padding: 18px 16px 22px 60px; display: grid; gap: 4px; color: var(--pencil); border-top: 1px solid var(--line); }
+.nb-sec { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #6B7A93; margin: 10px 0 0; }
 .nb-sec:first-child { margin-top: 0; }
 .sent { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; border-radius: 8px; }
-.sent.now { background: rgba(255, 216, 77, .28); }
+.sent.now { background: rgba(255, 207, 51, .3); }
 .sent .staffs { min-width: 0; display: grid; gap: 2px; }
 .sent svg { display: block; width: 100%; height: auto; overflow: visible; }
-.sent .speak { background: rgba(255,255,255,.7); border-color: var(--rule-mid); color: var(--pencil); }
-.sent .ko { grid-column: 1; font-size: 13px; color: #5E6A80; margin: -2px 0 6px; }
+.sent .tools { display: flex; gap: 6px; align-items: center; }
+.sent .tools > * { background: rgba(255,255,255,.75); }
+.sent .tools .speak, .sent .tools .mic { border-color: var(--rule-mid); color: var(--pencil); }
+.sent .tools .mic.rec { background: var(--rec); color: #fff; }
+.sent .ko { grid-column: 1 / -1; font-size: 13px; color: #5E6A80; margin: -2px 0 6px; }
+.sent .heard { grid-column: 1 / -1; font-size: 13px; margin: -2px 0 6px; color: #2B4A33; }
+.sent .heard.no { color: #9A2B2B; }
 .notebook.no-ko .sent .ko { display: none; }
-.empty { text-align: center; display: grid; gap: 12px; justify-items: center; padding: 34px 18px; background: var(--surface); border: 2px dashed var(--line); border-radius: 18px; }
-.empty .big { font-family: var(--f-display); font-size: 24px; }
+.empty { text-align: center; display: grid; gap: 12px; justify-items: center; padding: 40px 18px; background: var(--surface); border-radius: 24px; box-shadow: var(--shadow); }
+.empty .big { font-family: var(--f-display); font-size: 26px; }
+.empty .cart-ico { font-size: 54px; line-height: 1; }
 
-/* role play */
-.rp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 860px; }
-.rp-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 12px; align-content: start; box-shadow: var(--shadow); }
-.rp-card .role { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.rp-card .photo { border-radius: 12px; }
-.rp-card .big { font-family: var(--f-display); font-size: 28px; }
-.frame { font-size: 18px; font-weight: 500; margin: 0; display: flex; gap: 10px; align-items: center; justify-content: space-between; }
-.frame u { text-decoration: none; border-bottom: 2px dashed var(--accent); padding: 0 4px; }
-.hidden-price { border: 2px dashed var(--line); border-radius: 10px; padding: 14px; text-align: center; color: var(--muted); }
-
-/* review table */
-.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
-table.review { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
-table.review th, table.review td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
-table.review th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
-table.review tr:last-child td { border-bottom: none; }
-.st { font-size: 12px; font-weight: 700; border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
-.st.keep { background: var(--good-bg); color: var(--good); }
-.st.out { background: var(--bad-bg); color: var(--bad); }
-.st.new { background: var(--pair-bg); color: var(--pair); }
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.ex { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
-
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 700; z-index: 40; box-shadow: var(--shadow); white-space: nowrap; }
 footer { color: var(--muted); font-size: 13px; }
 
-.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 700; z-index: 20; box-shadow: var(--shadow); }
-
 @media (max-width: 640px) {
-  .rp, .two { grid-template-columns: 1fr; }
+  .levels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .lv { padding: 10px; border-radius: 16px; }
+  .lv .t { font-size: 17px; gap: 4px; }
+  .lv .d { font-size: 11px; line-height: 1.4; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .card .en { font-size: 18px; }
-  .card .speak { min-width: 30px; height: 30px; padding: 0 7px; }
   .card-body { padding: 10px 10px 12px; }
-  .card .stores { display: none; }
+  .card .en { font-size: 18px; }
+  .price { font-size: 17px; }
+  .price small { display: block; margin: 0; }
   .sheet > :not(.sheet-photo) { margin-inline: 16px; }
-  .sheet-head h2 { font-size: 26px; }
+  .sheet-head h2 { font-size: 27px; }
   .count { margin-left: 0; width: 100%; }
   .mine-head { grid-template-columns: 88px minmax(0, 1fr); gap: 12px; padding: 12px; }
   .mine-head h2 { font-size: 24px; }
-  .notebook { padding: 14px 10px 18px 34px; background-image: linear-gradient(90deg, transparent 0 24px, var(--margin-red) 24px 26px, transparent 26px); }
-  .sent .speak { min-width: 30px; height: 30px; padding: 0 6px; }
+  .notebook { padding: 14px 8px 18px 30px; background-image: linear-gradient(90deg, transparent 0 22px, var(--margin-red) 22px 24px, transparent 24px); }
+  .sent { grid-template-columns: minmax(0, 1fr); }
+  .sent .tools { justify-content: flex-end; }
+  .speak, .mic, .play { min-width: 34px; height: 34px; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
 
+<div class="awning" aria-hidden="true"></div>
 <header class="top">
   <div class="wrap">
-    <div class="eyebrow">Korea Shopping English · 복수형 물건 가게</div>
-    <div class="hero-row">
+    <div class="sign-row">
+      <span class="shopname">🛍️ K-쇼핑 영어 마켓</span>
+    </div>
+    <div class="sign-row">
       <h1>How much are the <span class="blank" id="heroWord">socks</span>?</h1>
       <button class="speak" type="button" id="heroSpeak" aria-label="문장 듣기">🔊</button>
     </div>
-    <p class="lede">한국의 다이소, 편의점, 올리브영, 옷가게에서 살 수 있는 <b>항상 복수형으로 쓰는 물건 20가지</b>예요. 물건을 눌러 가격, 특징, 살 수 있는 곳을 듣고 보고, 마음에 드는 물건을 <b>선택</b>해서 영어노트에 쓴 문장으로 연습해 보세요.</p>
+    <p class="lede">다이소, 편의점, 올리브영, 옷가게에서 파는 <b>항상 복수형</b> 물건을 골라 장바구니에 담아 보세요. 장바구니에서 영어노트 문장을 듣고, 따라 말하고, 녹음해 볼 수 있어요. 문장 속 단어를 누르면 뜻과 발음이 나와요.</p>
   </div>
 </header>
 
 <nav class="tabs" aria-label="메뉴">
   <div class="wrap">
-    <a href="#shop" data-view="shop">🛒 물건 보기</a>
-    <a href="#mine" data-view="mine">⭐ 내가 고른 물건 <span class="badge" id="mineCount">0</span></a>
-    <a href="#roleplay" data-view="roleplay">🗣️ 짝 활동</a>
-    <a href="#review" data-view="review">🔍 물건 점검표</a>
+    <a href="#shop" data-view="shop">🏪 물건 보기</a>
+    <a href="#mine" data-view="mine">🛒 내 장바구니 <span class="badge" id="mineCount">0</span></a>
   </div>
 </nav>
 
 <main>
   <div class="wrap">
 
-    <!-- SHOP -->
     <section class="view" id="view-shop">
+      <div class="levels" role="group" aria-label="단계">
+        <button class="lv" type="button" data-lv="1"><span class="t">🌱 초급</span><span class="d">쉬운 단어 · 가격 묻고 답하기</span></button>
+        <button class="lv" type="button" data-lv="2"><span class="t">🌿 중급</span><span class="d">+ a pair of · 어디서 사요?</span></button>
+        <button class="lv" type="button" data-lv="3"><span class="t">🌳 고급</span><span class="d">+ 물건 특징 설명하기</span></button>
+      </div>
+      <div class="filters" id="storeFilter" role="group" aria-label="가게"><span>어느 가게?</span></div>
       <div class="note">
-        <div class="legend">
-          <div><span class="kind always">항상 복수</span><span>단수형을 쓰지 않아요. <i>glasses, scissors, jeans</i></span></div>
-          <div><span class="kind pair">짝(pair)</span><span>두 개가 한 쌍이라 복수형으로 말해요. <i>socks, chopsticks</i></span></div>
-        </div>
+        <span><b>항상 복수</b> glasses, scissors, jeans처럼 단수형이 없어요.</span>
+        <span><b>짝(pair)</b> socks, chopsticks처럼 두 개가 한 쌍이에요.</span>
       </div>
-      <div class="filters">
-        <div class="chipgroup" id="storeFilter" role="group" aria-label="가게"><span>어디서?</span></div>
-        <div class="chipgroup" id="kindFilter" role="group" aria-label="종류"><span>종류</span></div>
-        <div class="count" id="count"></div>
-      </div>
+      <div class="row"><span class="count" id="count"></span></div>
       <div class="grid" id="grid"></div>
-      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 노란 가격표는 말하기 연습용 대표 가격입니다. 물건 그림은 Canva로 만든 이미지예요.</footer>
+      <footer>가격은 2026년 기준 대략적인 가격이에요. 매장과 상품에 따라 달라질 수 있어요. 물건 그림은 Canva로 만든 이미지예요.</footer>
     </section>
 
-    <!-- MY ITEMS -->
     <section class="view" id="view-mine" hidden>
-      <div class="mine-bar">
-        <div class="seg" role="group" aria-label="연습 방법">
-          <button type="button" data-mode="read" aria-pressed="true">📖 문장 보기</button>
-          <button type="button" data-mode="blank" aria-pressed="false">✏️ 빈칸 말하기</button>
-        </div>
+      <div class="cart-bar">
+        <span class="sum" id="cartSum"></span>
         <div class="row">
+          <div class="seg" role="group" aria-label="연습 방법">
+            <button type="button" data-mode="read" aria-pressed="true">📖 문장 보기</button>
+            <button type="button" data-mode="blank" aria-pressed="false">✏️ 빈칸 말하기</button>
+          </div>
           <button class="btn ghost small" type="button" id="toggleKo">우리말 뜻 숨기기</button>
           <button class="btn small" type="button" id="playAllMine">🔊 모두 듣기</button>
         </div>
@@ -375,66 +313,18 @@ footer { color: var(--muted); font-size: 13px; }
       <div class="mine-list" id="mineList"></div>
     </section>
 
-    <!-- ROLE PLAY -->
-    <section class="view" id="view-roleplay" hidden>
-      <div class="note">
-        <h2>짝 활동: 가게 놀이</h2>
-        <p><b>A(손님)</b>는 물건을 보고 묻고, <b>B(점원)</b>는 가격표를 보고 대답해요. 한 번 하면 역할을 바꿔요. 내가 고른 물건이 있으면 그 물건들로 연습해요.</p>
-      </div>
-      <div class="rp" id="rp"></div>
-      <div class="row">
-        <button class="btn" id="rpNext" type="button">다음 물건 ▶</button>
-        <button class="btn ghost" id="rpSpeak" type="button">🔊 대화 듣기</button>
-      </div>
-    </section>
-
-    <!-- REVIEW -->
-    <section class="view" id="view-review" hidden>
-      <div class="note">
-        <h2>물건 다시 점검하기</h2>
-        <p>처음 목록 20개 중에서 <b>How much are the ___? They're ___.</b> 활동에 꼭 맞는 물건만 남겼어요. 기준은 두 가지예요.</p>
-        <p>① 영어에서 <b>늘 복수형으로 쓰는 말</b>인가? (glasses, scissors처럼 단수형이 없음)<br>② <b>두 개가 한 쌍</b>이라 보통 복수형으로 사고파는 물건인가? (socks, chopsticks)</p>
-        <p>컵라면, 마스크팩, 건전지처럼 한 개씩도 사는 물건은 <i>How much is the sheet mask?</i>처럼 단수로 묻는 게 더 자연스러워서 뺐어요.</p>
-      </div>
-      <div class="tbl-wrap"><table class="review" id="reviewTable"></table></div>
-      <div class="two">
-        <div class="note">
-          <h2>문장 규칙</h2>
-          <div class="ex"><span>❌ How much <b>is</b> the glasses?</span></div>
-          <div class="ex"><span>✅ How much <b>are</b> the glasses? — <b>They're</b> 5,000 won.</span><button class="speak" type="button" data-say="How much are the glasses? They're five thousand won." aria-label="듣기">🔊</button></div>
-          <div class="ex"><span>✅ <b>a pair of</b> glasses / <b>a pair of</b> scissors</span><button class="speak" type="button" data-say="a pair of glasses. a pair of scissors." aria-label="듣기">🔊</button></div>
-          <div class="ex"><span>✅ two <b>pairs</b> of socks</span><button class="speak" type="button" data-say="two pairs of socks" aria-label="듣기">🔊</button></div>
-        </div>
-        <div class="note">
-          <h2>가격 읽기</h2>
-          <div class="ex"><span>1,000 → one thousand won</span><button class="speak" type="button" data-say="one thousand won" aria-label="듣기">🔊</button></div>
-          <div class="ex"><span>2,500 → two thousand five hundred won</span><button class="speak" type="button" data-say="two thousand five hundred won" aria-label="듣기">🔊</button></div>
-          <div class="ex"><span>15,000 → fifteen thousand won</span><button class="speak" type="button" data-say="fifteen thousand won" aria-label="듣기">🔊</button></div>
-          <div class="ex"><span>39,000 → thirty-nine thousand won</span><button class="speak" type="button" data-say="thirty-nine thousand won" aria-label="듣기">🔊</button></div>
-          <p>‘원’은 영어로 <b>won</b>이고, 숫자가 커도 <b>wons</b>라고 하지 않아요.</p>
-        </div>
-      </div>
-    </section>
-
   </div>
 </main>
 
 <dialog id="sheet" aria-labelledby="sheetTitle"></dialog>
+<div class="wpop" id="wpop" role="dialog" aria-live="polite" hidden></div>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
 const STORES = {
-  daiso:   "다이소",
-  cvs:     "편의점",
-  oliveyoung: "올리브영",
-  clothes: "옷가게",
-  shoes:   "신발가게",
-  market:  "시장·지하상가",
-  souvenir:"기념품점",
-  other:   "기타"
+  daiso: "다이소", cvs: "편의점", oliveyoung: "올리브영", clothes: "옷가게",
+  shoes: "신발가게", market: "시장·지하상가", souvenir: "기념품점", other: "기타"
 };
-
-/* where: [storeKey, 한국어 이름, 설명, 가격, English place name] */
 const ITEMS = [
   { id:"socks", en:"socks", ko:"양말", emoji:"🧦", kind:"pair", price:2000, range:"1,000~3,000원",
     unit:"a pair of socks",
@@ -642,19 +532,25 @@ const ITEMS = [
     ]}
 ];
 
-const REMOVED = [
-  ["hand warmers","핫팩","한 개씩 사는 물건이라 How much is the hand warmer?가 자연스러움"],
-  ["batteries","건전지","한 개도 battery라 부름. 짝이 아님"],
-  ["noodles","컵라면","컵라면 하나는 a cup of noodles. 물건 단위로 묻기 어려움"],
-  ["potato chips","감자칩","보통 a bag of chips로 봉지 단위로 묻는 말"],
-  ["gummies","젤리","봉지 단위(a bag of gummies)로 사고팜"],
-  ["eye patches","아이패치","a pair of eye patches는 어색함. 통(a jar) 단위로 팜"],
-  ["claw clips","집게핀","집게핀은 한 개(a claw clip)로 쓰므로 a pair of가 틀림"],
-  ["hair ties","머리끈","묶음(a pack) 상품이고 한 개는 a hair tie"],
-  ["pimple patches","여드름 패치","묶음(a pack) 상품, 짝이 아님"],
-  ["sheet masks","마스크팩","한 장씩 사므로 How much is the sheet mask?가 자연스러움"]
-];
-const KEPT = ["socks","glasses","sunglasses","scissors","chopsticks","gloves","slippers","earphones","shoelaces","tweezers"];
+/* 초급 = short everyday words · 중급 = longer words · 고급 = compound words */
+const LEVEL = {
+  socks: 1, glasses: 1, scissors: 1, gloves: 1, shorts: 1, jeans: 1, sneakers: 1,
+  sunglasses: 2, chopsticks: 2, slippers: 2, earphones: 2, earrings: 2, pajamas: 2, shoelaces: 2,
+  "rubber-gloves": 3, "flip-flops": 3, "false-eyelashes": 3, tweezers: 3, "nail-clippers": 3, earmuffs: 3
+};
+const LV_NAME = { 1: "🌱 초급", 2: "🌿 중급", 3: "🌳 고급" };
+
+/* Korean meanings for every word used in the sentences */
+const DICT = {
+  "a":"하나의 (a)","abc-mart":"ABC마트 (신발가게)","about":"약, 대략","all":"모든, 내내","an":"하나의 (an)","and":"그리고","animal":"동물","are":"~이다 (복수)","as":"~로서","at":"~에서","beach":"바닷가, 해변","beautiful":"아름다운","big":"큰","bigger":"더 큰","block":"막다","blue":"파란; 블루","bright":"밝은","but":"하지만","buy":"사다","can":"~할 수 있다","carry":"가지고 다니다","cartoon":"만화","centers":"센터, 상가","character":"캐릭터","characters":"캐릭터들","chopsticks":"젓가락","clip-on":"집게형(귀를 안 뚫어도 되는)","clippers":"깎는 도구","colorful":"알록달록한","colors":"색깔들","come":"(상품이) 나오다","comfortable":"편안한","computers":"컴퓨터들","convenience":"편리함 (convenience store: 편의점)","cool":"시원한; 멋진","cute":"귀여운","daiso":"다이소","dance":"춤, 댄스","day":"날, 하루","designs":"디자인들","dishes":"접시들, 설거지거리","don't":"~하지 않다","dongdaemun":"동대문","dry":"마르다","earmuffs":"귀마개","earphones":"이어폰","earrings":"귀걸이","ears":"귀들","easy":"쉬운","eight":"8, 여덟","eighty":"80","electronics":"전자제품","every":"매, 모든","eyebrows":"눈썹","eyeglass":"안경","eyelashes":"속눈썹","eyes":"눈들","false":"가짜의, 인조","festivals":"축제들","fifty":"50","find":"찾다","five":"5, 다섯","flat":"납작한","flip-flops":"쪼리, 슬리퍼","fluffy":"폭신한","for":"~을 위해, ~동안","forty":"40","four":"4, 넷","from":"~으로부터","fun":"재미있는","gangnam":"강남","get":"얻다, 맞추다","gifts":"선물들","glasses":"안경","gloves":"장갑","good":"좋은","great":"아주 좋은","handles":"손잡이들","hands":"손들","have":"가지고 있다","hearts":"하트 모양들","help":"돕다","hot":"더운, 뜨거운","hour":"1시간","house":"집","how":"얼마나, 어떻게","hundred":"100, 백","hundreds":"수백","i":"나, 저","in":"~안에, ~에서","insadong":"인사동","inside":"~안에서","jeans":"청바지","k-pop":"케이팝","keep":"유지하다 (keep warm: 따뜻하게 하다)","kids":"아이들","kimchi":"김치","korea":"한국","korean":"한국의","koreans":"한국 사람들","last":"오래가다","light":"가벼운; 빛","like":"~처럼","long":"긴, 오래","look":"~해 보이다","make":"만들다","many":"많은","market":"시장","metal":"금속, 쇠","mother-of-pearl":"자개","much":"많이 (How much: 얼마)","myeongdong":"명동","nail":"손톱","near":"~근처에","need":"필요하다","new":"새로운","nine":"9, 아홉","ninety":"90","now":"지금, 요즘","of":"~의","often":"자주, 흔히","old":"오래된","olive":"올리브 (Olive Young: 올리브영)","on":"~위에","one":"1, 하나","or":"또는","pair":"한 쌍, 한 켤레","pairs":"쌍들, 켤레들","pajamas":"잠옷","patterns":"무늬들","people":"사람들","phone":"휴대폰","phones":"휴대폰들","pick":"집다 (pick up: 집어 올리다)","pierced":"뚫은","pink":"분홍색의","pool":"수영장","popular":"인기 있는","protect":"보호하다","quickly":"빨리","real":"진짜의","red":"빨간","rubber":"고무","safe":"안전한","school":"학교","scissors":"가위","seven":"7, 일곱","seventy":"70","shape":"다듬다; 모양","shapes":"모양들","sharp":"날카로운","shoe":"신발","shoelaces":"신발끈","shoemarker":"슈마커 (신발가게)","shop":"가게","shopping":"쇼핑","shops":"가게들","shorts":"반바지","shows":"공연들","six":"6, 여섯","sixty":"60","slippers":"슬리퍼, 실내화","small":"작은","sneakers":"운동화","so":"그래서","socks":"양말","soft":"부드러운","some":"어떤 것들은","souvenir":"기념품","spao":"스파오 (옷가게)","sports":"운동","stars":"별들","stationery":"문구","stores":"가게들","street":"거리","strong":"튼튼한","students":"학생들","styles":"스타일들","summers":"여름들","sun":"해, 햇빛","sunglasses":"선글라스","supermarkets":"마트들","swimming":"수영","ten":"10, 열","the":"그 (정해진 것)","their":"그들의","them":"그것들을","these":"이것들","they":"그것들은","they're":"그것들은 ~이다 (They are)","things":"물건들","thirty":"30","thousand":"1,000, 천","three":"3, 셋","time":"시간","to":"~에, ~하기 위해","top":"위쪽","topten":"탑텐 (옷가게)","touch":"터치","tourists":"관광객들","tweezers":"족집게, 핀셋","twenty":"20","two":"2, 둘","underground":"지하의","uniqlo":"유니클로 (옷가게)","up":"위로","use":"사용하다","usually":"보통","very":"아주, 매우","walking":"걷기","want":"원하다","warm":"따뜻한","wash":"씻다","wear":"입다, 신다, 쓰다","wide":"넓은, 통이 큰","winter":"겨울","with":"~와 함께, ~로","won":"원 (한국 돈)","years":"년, 해들","you":"너, 여러분","young":"젊은 (Olive Young: 올리브영)","your":"너의","10,000":"10,000 (만)"
+};
+function meaning(word) {
+  const w = word.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9']+$/g, "");
+  if (DICT[w]) return DICT[w];
+  if (w.includes("-")) { const parts = w.split("-").map(p => DICT[p]); if (parts.every(Boolean)) return parts.map(p => p.split(",")[0]).join(" + "); }
+  if (/^[\d,]+$/.test(w)) return w + " (숫자)";
+  return "";
+}
 
 /* ---------- helpers ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -665,7 +561,7 @@ const TENS = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty"
 function under1000(n) {
   const parts = [];
   if (n >= 100) { parts.push(ONES[Math.floor(n / 100)] + " hundred"); n %= 100; }
-  if (n >= 20) { parts.push(TENS[Math.floor(n / 10)] + (n % 10 ? "-" + ONES[n % 10] : "")); }
+  if (n >= 20) parts.push(TENS[Math.floor(n / 10)] + (n % 10 ? "-" + ONES[n % 10] : ""));
   else if (n > 0) parts.push(ONES[n]);
   return parts.join(" ");
 }
@@ -675,19 +571,16 @@ function numWords(n) {
   return [th ? under1000(th) + " thousand" : "", rest ? under1000(rest) : ""].filter(Boolean).join(" ");
 }
 const priceWords = n => numWords(n) + " won";
-const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const pick = a => a[Math.floor(Math.random() * a.length)];
-const kindLabel = k => k === "pair" ? "짝(pair)" : "항상 복수";
 const storesOf = it => [...new Set(it.where.map(w => w[0]))];
 const byId = id => ITEMS.find(x => x.id === id);
 function sing(en) { return /(ss|sh|ch|x)es$/.test(en) ? en.slice(0, -2) : en.replace(/s$/, ""); }
 const sayBtn = (text, label = "듣기") => `<button class="speak" type="button" data-say="${esc(text)}" aria-label="${esc(label)}">🔊</button>`;
-
+const lvTag = it => `<span class="lvtag l${LEVEL[it.id]}">${LV_NAME[LEVEL[it.id]]}</span>`;
+/* wrap every English word so it can be clicked */
+const wordsHTML = text => esc(text).split(/(\s+)/).map(t => /\S/.test(t) ? `<span class="w" data-w="${t}">${t}</span>` : t).join("");
 function photoHTML(it, cls = "photo") {
   return `<div class="${cls}"><img src="images/${it.id}.jpg" alt="${esc(it.en)}" loading="lazy" data-emoji="${it.emoji}"></div>`;
 }
-
-/* if an image cannot load, show the emoji instead */
 document.addEventListener("error", e => {
   const img = e.target;
   if (img.tagName === "IMG" && img.dataset.emoji) {
@@ -696,23 +589,18 @@ document.addEventListener("error", e => {
     img.replaceWith(s);
   }
 }, true);
-
 function toast(msg) {
   const t = $("#toast"); t.textContent = msg; t.hidden = false;
-  clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 1800);
+  clearTimeout(toast.t); toast.t = setTimeout(() => { t.hidden = true; }, 2000);
 }
 
-/* ---------- listening (speech) ---------- */
+/* ---------- listening ---------- */
 let voices = [];
 function loadVoices() { try { voices = speechSynthesis.getVoices(); } catch (e) {} }
-if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
 const canSpeak = "speechSynthesis" in window;
+if (canSpeak) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
 let playingEls = [];
-function clearPlaying() {
-  playingEls.forEach(el => el.classList.remove("playing", "now"));
-  playingEls = [];
-}
-/* speak a list of [text, elementToHighlight] in order */
+function clearPlaying() { playingEls.forEach(el => el.classList.remove("playing", "now")); playingEls = []; }
 function speakSeq(list) {
   if (!canSpeak) { toast("이 브라우저는 영어 듣기를 지원하지 않아요."); return; }
   try {
@@ -720,8 +608,7 @@ function speakSeq(list) {
     const v = voices.find(v => /^en[-_]US/i.test(v.lang)) || voices.find(v => /^en/i.test(v.lang));
     list.forEach(([text, el]) => {
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US"; u.rate = 0.85;
-      if (v) u.voice = v;
+      u.lang = "en-US"; u.rate = 0.85; if (v) u.voice = v;
       u.onstart = () => { clearPlaying(); if (el) { el.classList.add(el.classList.contains("sent") ? "now" : "playing"); playingEls.push(el); } };
       u.onend = () => { if (el) el.classList.remove("playing", "now"); };
       speechSynthesis.speak(u);
@@ -729,12 +616,30 @@ function speakSeq(list) {
   } catch (e) {}
 }
 const speak = (text, el) => speakSeq([[text, el]]);
-document.addEventListener("click", e => {
-  const b = e.target.closest("[data-say]");
-  if (b) { e.stopPropagation(); speak(b.dataset.say, b.closest(".sent") || b); }
-});
 
-/* ---------- selection ---------- */
+/* ---------- word popup (click any word) ---------- */
+const wpop = $("#wpop");
+function showWord(word, x, y) {
+  const clean = word.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9']+$/g, "");
+  if (!clean) return;
+  const m = meaning(clean) || "뜻을 준비 중이에요";
+  wpop.innerHTML = `<div><div class="we">${esc(clean)}</div><div class="wk">${esc(m)}</div></div>${sayBtn(clean, clean + " 발음 듣기")}`;
+  wpop.hidden = false;
+  const r = wpop.getBoundingClientRect();
+  wpop.style.left = Math.max(12, Math.min(x - r.width / 2, innerWidth - r.width - 12)) + "px";
+  wpop.style.top = (y - r.height - 14 < 8 ? y + 22 : y - r.height - 14) + "px";
+  speak(clean);
+}
+document.addEventListener("click", e => {
+  const sb = e.target.closest("[data-say]");
+  if (sb) { e.stopPropagation(); speak(sb.dataset.say, sb.closest(".sent") || sb); return; }
+  const w = e.target.closest(".w");
+  if (w) { e.stopPropagation(); const r = w.getBoundingClientRect(); showWord(w.dataset.w, r.left + r.width / 2, r.top); return; }
+  if (!e.target.closest("#wpop")) wpop.hidden = true;
+}, true);
+addEventListener("scroll", () => { wpop.hidden = true; }, { passive: true });
+
+/* ---------- cart (selection) ---------- */
 let picked = [];
 try { picked = JSON.parse(localStorage.getItem("pps-picked") || "[]").filter(byId); } catch (e) { picked = []; }
 function savePicked() { try { localStorage.setItem("pps-picked", JSON.stringify(picked)); } catch (e) {} }
@@ -742,51 +647,63 @@ function togglePick(id) {
   const i = picked.indexOf(id);
   if (i >= 0) picked.splice(i, 1); else picked.push(id);
   savePicked(); updateMineCount(); renderGrid(); renderMine();
-  return picked.includes(id);
+  const on = picked.includes(id);
+  toast(on ? `🛒 ${byId(id).en} 장바구니에 담았어요!` : `${byId(id).en} 뺐어요.`);
+  return on;
 }
 function updateMineCount() { $("#mineCount").textContent = picked.length; }
 
 /* ---------- shop ---------- */
-const state = { store: "all", kind: "all" };
-function buildFilters() {
-  const sf = $("#storeFilter"), kf = $("#kindFilter");
-  const storeKeys = ["all", ...Object.keys(STORES).filter(k => ITEMS.some(it => storesOf(it).includes(k)))];
-  storeKeys.forEach(k => {
+const state = { lv: 1, store: "all" };
+try { const l = +localStorage.getItem("pps-lv"); if (l >= 1 && l <= 3) state.lv = l; } catch (e) {}
+document.querySelectorAll(".lv").forEach(b => b.onclick = () => {
+  state.lv = +b.dataset.lv; state.store = "all";
+  try { localStorage.setItem("pps-lv", state.lv); } catch (e) {}
+  renderGrid();
+});
+function buildStoreFilter() {
+  const sf = $("#storeFilter");
+  ["all", ...Object.keys(STORES)].forEach(k => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "chip"; b.dataset.store = k;
     b.textContent = k === "all" ? "전체" : STORES[k];
     sf.appendChild(b);
   });
-  [["all","전체"],["always","항상 복수"],["pair","짝(pair)"]].forEach(([k, l]) => {
-    const b = document.createElement("button");
-    b.type = "button"; b.className = "chip"; b.dataset.kind = k; b.textContent = l;
-    kf.appendChild(b);
-  });
   sf.addEventListener("click", e => { const b = e.target.closest("[data-store]"); if (b) { state.store = b.dataset.store; renderGrid(); } });
-  kf.addEventListener("click", e => { const b = e.target.closest("[data-kind]"); if (b) { state.kind = b.dataset.kind; renderGrid(); } });
 }
 function renderGrid() {
-  document.querySelectorAll("#storeFilter .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.store === state.store));
-  document.querySelectorAll("#kindFilter .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.kind === state.kind));
-  const list = ITEMS.filter(it =>
-    (state.store === "all" || storesOf(it).includes(state.store)) &&
-    (state.kind === "all" || it.kind === state.kind));
-  $("#count").textContent = `${list.length}개 물건 · ${picked.length}개 선택함`;
-  $("#grid").innerHTML = list.map(it => `
-    <article class="card${picked.includes(it.id) ? " picked" : ""}">
+  document.querySelectorAll(".lv").forEach(b => b.setAttribute("aria-pressed", +b.dataset.lv === state.lv));
+  const inLevel = ITEMS.filter(it => LEVEL[it.id] === state.lv);
+  document.querySelectorAll("#storeFilter .chip").forEach(b => {
+    const k = b.dataset.store;
+    b.hidden = k !== "all" && !inLevel.some(it => storesOf(it).includes(k));
+    b.setAttribute("aria-pressed", k === state.store);
+  });
+  const list = inLevel.filter(it => state.store === "all" || storesOf(it).includes(state.store));
+  $("#count").textContent = `${LV_NAME[state.lv]} 물건 ${list.length}개 · 장바구니 ${picked.length}개`;
+  $("#grid").innerHTML = list.map(it => {
+    const on = picked.includes(it.id);
+    return `<article class="card">
       <button class="open" type="button" data-id="${it.id}" aria-label="${esc(it.en)} 자세히 보기"></button>
-      ${picked.includes(it.id) ? `<span class="picked-mark">✓ 선택함</span>` : ""}
-      <span class="tag">₩${it.price.toLocaleString("en-US")}</span>
+      ${lvTag(it)}
+      <button class="heart" type="button" data-pick="${it.id}" aria-label="${on ? "장바구니에서 빼기" : "장바구니에 담기"}">${on ? "♥" : "♡"}</button>
       ${photoHTML(it)}
       <div class="card-body">
-        <div class="en-row"><span class="en">${esc(it.en)}</span>${sayBtn(`${it.en}. How much are the ${it.en}? They're ${priceWords(it.price)}.`, it.en + " 듣기")}</div>
+        <div class="stores">${storesOf(it).map(k => `<span class="store">${STORES[k]}</span>`).join("")}</div>
+        <span class="en">${esc(it.en)}</span>
         <span class="ko">${esc(it.ko)}</span>
-        <span class="meta"><span class="kind ${it.kind}">${kindLabel(it.kind)}</span></span>
-        <span class="stores">${storesOf(it).map(k => STORES[k]).join(" · ")}</span>
+        <span class="price">${won(it.price)}<small>보통 ${esc(it.range)}</small></span>
+        <div class="card-actions">
+          ${sayBtn(`How much are the ${it.en}? They're ${priceWords(it.price)}.`, it.en + " 듣기")}
+          <button class="cart-btn${on ? " on" : ""}" type="button" data-pick="${it.id}">${on ? "✓ 담았어요" : "🛒 담기"}</button>
+        </div>
       </div>
-    </article>`).join("");
+    </article>`;
+  }).join("");
 }
 $("#grid").addEventListener("click", e => {
+  const p = e.target.closest("[data-pick]");
+  if (p) { togglePick(p.dataset.pick); return; }
   const c = e.target.closest(".open"); if (c) openSheet(c.dataset.id);
 });
 
@@ -794,59 +711,53 @@ $("#grid").addEventListener("click", e => {
 const sheet = $("#sheet");
 function openSheet(id) {
   const it = byId(id);
-  const q = `How much are the ${it.en}?`;
-  const a = `They're ${priceWords(it.price)}.`;
-  const tipSay = it.kind === "always" ? `${it.unit}.` : `${it.unit}. ${it.unit.replace("a pair", "two pairs")}.`;
+  const q = `How much are the ${it.en}?`, a = `They're ${priceWords(it.price)}.`;
+  const two = it.unit.replace("a pair", "two pairs");
   const tip = it.kind === "always"
-    ? `<div class="tip"><span><b>${esc(it.en)}</b>는 영어에서 <b>항상 복수형</b>이에요. ‘a ${esc(sing(it.en))}’라고 하지 않고, 하나를 말할 때는 <b>${esc(it.unit)}</b>라고 해요.</span>${sayBtn(tipSay)}</div>`
-    : `<div class="tip pairtip"><span><b>${esc(it.en)}</b>는 두 개가 <b>한 쌍</b>이라 복수형으로 사고팔아요. 한 쌍은 <b>${esc(it.unit)}</b>, 두 쌍은 <b>${esc(it.unit.replace("a pair", "two pairs"))}</b>.</span>${sayBtn(tipSay)}</div>`;
+    ? `<b>${esc(it.en)}</b>는 항상 복수형! ‘a ${esc(sing(it.en))}’라고 하지 않고 <b>${esc(it.unit)}</b>라고 해요.`
+    : `<b>${esc(it.en)}</b>는 두 개가 한 쌍! 한 쌍은 <b>${esc(it.unit)}</b>, 두 쌍은 <b>${esc(two)}</b>.`;
   const on = picked.includes(id);
   sheet.innerHTML = `
     <div class="sheet">
       <div class="sheet-photo">
         <img src="images/${it.id}.jpg" alt="${esc(it.en)}" data-emoji="${it.emoji}">
+        ${lvTag(it)}
         <button class="x" type="button" data-close aria-label="닫기">✕</button>
       </div>
       <div class="sheet-head">
-        <h2 id="sheetTitle">${esc(it.en)}</h2>
+        <h2 id="sheetTitle">${wordsHTML(it.en)}</h2>
         ${sayBtn(it.en, it.en + " 발음 듣기")}
-        <span class="kind ${it.kind}">${kindLabel(it.kind)}</span>
         <div class="ko">${esc(it.ko)}</div>
       </div>
-      <div class="row"><span class="tag big">₩${it.price.toLocaleString("en-US")}</span><span style="color:var(--muted);font-size:14px">보통 ${esc(it.range)}</span></div>
-      <div class="dialog-box">
-        <div class="line"><span class="who">A</span><span class="say">How much are the <b>${esc(it.en)}</b>?</span>${sayBtn(q)}</div>
-        <div class="line"><span class="who b">B</span><span class="say">They're <b>${won(it.price).replace("원"," won")}</b>.<small>${esc(priceWords(it.price))}</small></span>${sayBtn(a)}</div>
+      <div class="row"><span class="price" style="font-size:26px;color:var(--accent)">${won(it.price)}</span><span style="color:var(--muted);font-size:14px">보통 ${esc(it.range)}</span></div>
+      <div class="talk">
+        <div class="bubble"><span class="who">🙋</span><span class="txt">${wordsHTML(q)}</span>${sayBtn(q)}</div>
+        <div class="bubble b"><span class="who">🧑‍💼</span><span class="txt">${wordsHTML(`They're ${won(it.price).replace("원", " won")}.`)}<small>${esc(priceWords(it.price))}</small></span>${sayBtn(a)}</div>
       </div>
-      <div class="sheet-actions">
-        <button class="pick-btn${on ? " on" : ""}" type="button" id="pickBtn">${on ? "✓ 선택한 물건이에요 (다시 누르면 빼기)" : "⭐ 이 물건으로 선택하기"}</button>
-        <a class="go" href="#mine" id="goMine"${on ? "" : " hidden"}>내가 고른 물건에서 문장 연습하기 →</a>
+      <button class="pick-btn${on ? " on" : ""}" type="button" id="pickBtn">${on ? "✓ 장바구니에 담았어요 (누르면 빼기)" : "🛒 이 물건 장바구니에 담기"}</button>
+      <a class="go" href="#mine" id="goMine"${on ? "" : " hidden"}>장바구니에서 영어노트로 연습하기 →</a>
+      <div class="block">
+        <h3>✨ 이런 점이 좋아요</h3>
+        <ul class="feat">${it.features.map(([e, k]) => `<li><span class="e">${wordsHTML(e)}</span><span class="k">${esc(k)}</span>${sayBtn(e)}</li>`).join("")}</ul>
       </div>
       <div class="block">
-        <h3>특징 · Features</h3>
-        <ul class="feat">${it.features.map(([e, k]) => `<li><span class="e">${esc(e)}</span><span class="k">${esc(k)}</span>${sayBtn(e)}</li>`).join("")}</ul>
+        <h3>📍 여기서 살 수 있어요</h3>
+        <div class="where">${it.where.map(([, name, note, p, en]) => `<div class="shoprow"><span><b>${esc(name)}</b><span class="sub">${esc(note)}</span></span><span class="p">${esc(p)}</span>${sayBtn(`You can buy them at ${en}.`)}</div>`).join("")}</div>
       </div>
-      <div class="block">
-        <h3>어디서 살 수 있나요? · Where to buy</h3>
-        <table class="where"><tbody>${it.where.map(([, name, note, p, en]) => `<tr><td>${esc(name)}<span class="sub">${esc(note)}</span></td><td class="p">${esc(p)}</td><td class="s">${sayBtn(`You can buy them at ${en}.`)}</td></tr>`).join("")}</tbody></table>
-      </div>
-      ${tip}
+      <div class="tip"><span>${tip}</span>${sayBtn(it.kind === "always" ? it.unit : `${it.unit}. ${two}.`)}</div>
     </div>`;
   $("#pickBtn").onclick = () => {
     const nowOn = togglePick(id);
     const b = $("#pickBtn");
     b.classList.toggle("on", nowOn);
-    b.textContent = nowOn ? "✓ 선택한 물건이에요 (다시 누르면 빼기)" : "⭐ 이 물건으로 선택하기";
+    b.textContent = nowOn ? "✓ 장바구니에 담았어요 (누르면 빼기)" : "🛒 이 물건 장바구니에 담기";
     $("#goMine").hidden = !nowOn;
-    toast(nowOn ? `⭐ ${it.en} 담았어요.` : `${it.en} 뺐어요.`);
   };
   $("#goMine").onclick = () => sheet.close();
   if (typeof sheet.showModal === "function") sheet.showModal(); else sheet.setAttribute("open", "");
 }
-sheet.addEventListener("click", e => {
-  if (e.target === sheet || e.target.closest("[data-close]")) sheet.close();
-});
-sheet.addEventListener("close", () => { try { speechSynthesis.cancel(); } catch (e) {} clearPlaying(); });
+sheet.addEventListener("click", e => { if (e.target === sheet || e.target.closest("[data-close]")) sheet.close(); });
+sheet.addEventListener("close", () => { try { speechSynthesis.cancel(); } catch (e) {} clearPlaying(); wpop.hidden = true; });
 
 /* ---------- English notebook (4-line paper) ---------- */
 const NB = { mode: "read", ko: true };
@@ -857,17 +768,16 @@ function measureFont() {
   const m = measureCtx.measureText("x");
   if (m.actualBoundingBoxAscent) xRatio = m.actualBoundingBoxAscent / 100;
 }
-/* segments: [{t:"How much are the "}, {t:"socks", hl:true, blank:true}] */
 function sentenceSegs(segs) {
   return segs.map(s => (NB.mode === "blank" && s.blank) ? { t: "m".repeat(Math.max(4, Math.min(12, Math.round(s.t.length * 0.6)))), hl: true, gap: true } : s);
 }
-/* word-wrap tokens into staff lines, remembering each token's x */
 function layoutStaffs(segs, width, fs) {
   measureCtx.font = `400 ${fs}px Andika, "Comic Sans MS", sans-serif`;
   const tokens = [];
   segs.forEach(s => (s.gap ? [s.t] : s.t.split(/(\s+)/)).forEach(w => { if (w) tokens.push({ ...s, t: w }); }));
   const lines = [[]]; let x = 0;
   tokens.forEach(tok => {
+    measureCtx.font = `${tok.hl ? 700 : 400} ${fs}px Andika, "Comic Sans MS", sans-serif`;
     const w = measureCtx.measureText(tok.t).width;
     const isSpace = /^\s+$/.test(tok.t);
     if (!isSpace && x + w > width && lines[lines.length - 1].length) { lines.push([]); x = 0; }
@@ -880,15 +790,18 @@ function drawSentence(el) {
   const segs = sentenceSegs(JSON.parse(el.dataset.segs));
   const box = el.querySelector(".staffs");
   const W = Math.max(160, box.clientWidth);
-  const H = W < 420 ? 42 : 60;                  /* staff height: 4 lines, 3 equal spaces */
-  const fs = (H / 3) / xRatio;                  /* lowercase body fills the middle space */
+  const H = W < 420 ? 42 : 60;
+  const fs = (H / 3) / xRatio;
   const top = 4, mid = top + H / 3, base = top + H * 2 / 3, bot = top + H, total = bot + 6;
   const lines = layoutStaffs(segs, W - 10, fs);
   box.innerHTML = lines.map(line => {
-    const words = line.map(t => t.gap
-      ? `<line x1="${(t.x + 4).toFixed(1)}" x2="${(t.x + 4 + t.w).toFixed(1)}" y1="${base - 2}" y2="${base - 2}" stroke="var(--pencil-hl)" stroke-width="2.5" stroke-linecap="round"/>`
-      : (/^\s+$/.test(t.t) ? "" : `<text x="${(t.x + 4).toFixed(1)}" y="${base}" font-family="Andika, 'Comic Sans MS', sans-serif" font-size="${fs.toFixed(1)}" fill="${t.hl ? "var(--pencil-hl)" : "var(--pencil)"}"${t.hl ? ` font-weight="700"` : ""}>${esc(t.t)}</text>`)).join("");
-    return `<svg viewBox="0 0 ${W} ${total}" width="${W}" height="${total}" aria-hidden="true">
+    const words = line.map(t => {
+      if (t.gap) return `<line x1="${(t.x + 4).toFixed(1)}" x2="${(t.x + 4 + t.w).toFixed(1)}" y1="${base - 2}" y2="${base - 2}" stroke="var(--pencil-hl)" stroke-width="2.5" stroke-linecap="round"/>`;
+      if (/^\s+$/.test(t.t)) return "";
+      if (!/[A-Za-z0-9]/.test(t.t)) return `<text x="${(t.x + 4).toFixed(1)}" y="${base}" font-family="Andika, 'Comic Sans MS', sans-serif" font-size="${fs.toFixed(1)}" fill="var(--pencil)">${esc(t.t)}</text>`;
+      return `<g class="w" data-w="${esc(t.t)}"><rect x="${(t.x + 2).toFixed(1)}" y="${top}" width="${(t.w + 4).toFixed(1)}" height="${H}" fill="transparent"/><text x="${(t.x + 4).toFixed(1)}" y="${base}" font-family="Andika, 'Comic Sans MS', sans-serif" font-size="${fs.toFixed(1)}" fill="${t.hl ? "var(--pencil-hl)" : "var(--pencil)"}"${t.hl ? ` font-weight="700"` : ""}>${esc(t.t)}</text></g>`;
+    }).join("");
+    return `<svg viewBox="0 0 ${W} ${total}" width="${W}" height="${total}">
       <line x1="0" x2="${W}" y1="${top}" y2="${top}" stroke="var(--rule)" stroke-width="1"/>
       <line x1="0" x2="${W}" y1="${mid}" y2="${mid}" stroke="var(--rule-mid)" stroke-width="1" stroke-dasharray="5 4"/>
       <line x1="0" x2="${W}" y1="${base}" y2="${base}" stroke="var(--rule-red)" stroke-width="1.4"/>
@@ -900,55 +813,62 @@ function drawSentence(el) {
 }
 function drawAllNotebooks() { document.querySelectorAll("#mineList .sent").forEach(drawSentence); }
 
+/* sentences grow with the item's level */
 function sentencesFor(it) {
+  const lv = LEVEL[it.id];
   const P = priceWords(it.price);
   const sec = [];
-  sec.push(["가격 묻고 답하기", [
+  const price = [
     { segs: [{ t: "How much are the " }, { t: it.en, hl: true, blank: true }, { t: "?" }], ko: `${it.ko} 얼마예요?` },
-    { segs: [{ t: "They're " }, { t: P, hl: true, blank: true }, { t: "." }], ko: `${won(it.price)}이에요.` },
-    { segs: [{ t: "I want to buy " }, { t: it.unit, hl: true, blank: true }, { t: "." }], ko: `${it.ko} 하나 사고 싶어요.` }
-  ]]);
-  sec.push(["물건의 특징", it.features.map(([e, k]) => ({ segs: [{ t: e }], ko: k }))]);
-  sec.push(["어디서 살 수 있나요?", it.where.map(([, name, , p, en]) => ({
+    { segs: [{ t: "They're " }, { t: P, hl: true, blank: true }, { t: "." }], ko: `${won(it.price)}이에요.` }
+  ];
+  if (lv >= 2) price.push({ segs: [{ t: "I want to buy " }, { t: it.unit, hl: true, blank: true }, { t: "." }], ko: `${it.ko} 하나 사고 싶어요.` });
+  sec.push(["가격 묻고 답하기", price]);
+  if (lv >= 2) sec.push(["어디서 살 수 있나요?", it.where.slice(0, lv >= 3 ? 9 : 1).map(([, name, , p, en]) => ({
     segs: [{ t: "You can buy them at " }, { t: en, hl: true, blank: true }, { t: "." }],
     ko: `${name}에서 살 수 있어요. (${p})`
   }))]);
+  if (lv >= 3) sec.push(["물건의 특징", it.features.map(([e, k]) => ({ segs: [{ t: e }], ko: k }))]);
   return sec;
 }
 function renderMine() {
   const box = $("#mineList");
   $("#playAllMine").disabled = !picked.length;
+  const total = picked.reduce((s, id) => s + byId(id).price, 0);
+  $("#cartSum").innerHTML = picked.length ? `🛒 ${picked.length}개 · 합계 <b>${won(total)}</b>` : "🛒 장바구니가 비어 있어요";
   if (!picked.length) {
     box.innerHTML = `<div class="empty">
-      <div class="big">아직 고른 물건이 없어요</div>
-      <p style="margin:0;color:var(--muted)">🛒 물건 보기에서 물건을 누르고 <b>⭐ 이 물건으로 선택하기</b>를 눌러 보세요.<br>고른 물건마다 가격, 특징, 살 수 있는 곳 문장이 영어노트에 나와요.</p>
+      <div class="cart-ico">🛒</div>
+      <div class="big">장바구니가 비어 있어요</div>
+      <p style="margin:0;color:var(--muted)">물건 보기에서 <b>🛒 담기</b>를 눌러 보세요.<br>담은 물건마다 영어노트 문장이 나오고, 듣고 녹음할 수 있어요.</p>
       <div class="row" style="justify-content:center"><a class="btn" href="#shop">물건 고르러 가기</a><button class="btn ghost" type="button" id="sample">예시로 3개 담아 보기</button></div>
     </div>`;
-    $("#sample").onclick = () => { picked = ["socks", "glasses", "chopsticks"]; savePicked(); updateMineCount(); renderGrid(); renderMine(); };
+    $("#sample").onclick = () => { picked = ["socks", "sunglasses", "tweezers"]; savePicked(); updateMineCount(); renderGrid(); renderMine(); drawAllNotebooks(); };
     return;
   }
   box.innerHTML = picked.map(id => {
     const it = byId(id);
-    const secs = sentencesFor(it);
     return `<article class="mine-item" data-id="${id}">
       <div class="mine-head">
         ${photoHTML(it)}
         <div>
-          <h2>${esc(it.en)}</h2>
-          <div class="ko">${esc(it.ko)} · <span class="kind ${it.kind}">${kindLabel(it.kind)}</span></div>
+          <h2>${esc(it.en)} ${lvTag(it)}</h2>
+          <div class="ko">${esc(it.ko)} · <b style="color:var(--accent)">${won(it.price)}</b></div>
           <div class="row">
-            <span class="tag big">₩${it.price.toLocaleString("en-US")}</span>
             <button class="btn small" type="button" data-playitem="${id}">🔊 이 물건 문장 모두 듣기</button>
             <button class="btn ghost small" type="button" data-unpick="${id}">빼기</button>
           </div>
         </div>
       </div>
+      <div class="howto">🔊 듣기 → 🎤 따라 말하며 녹음 → ▶ 내 목소리 듣기 · 단어를 누르면 뜻이 나와요</div>
       <div class="notebook${NB.ko ? "" : " no-ko"}">
-        ${secs.map(([title, list]) => `<div class="nb-sec">${esc(title)}</div>` + list.map(s => {
+        ${sentencesFor(it).map(([title, list]) => `<div class="nb-sec">${esc(title)}</div>` + list.map((s, i) => {
           const full = s.segs.map(x => x.t).join("");
           return `<div class="sent" data-segs="${esc(JSON.stringify(s.segs))}" data-full="${esc(full)}">
-            <div class="staffs" role="img"></div>${sayBtn(full)}
+            <div class="staffs" role="img"></div>
+            <div class="tools">${sayBtn(full)}<button class="mic" type="button" aria-label="따라 말하며 녹음">🎤</button><button class="play" type="button" hidden aria-label="내 목소리 듣기">▶ 내 목소리</button></div>
             <div class="ko">${esc(s.ko)}</div>
+            <div class="heard" hidden></div>
           </div>`;
         }).join("")).join("")}
       </div>
@@ -960,10 +880,11 @@ $("#mineList").addEventListener("click", e => {
   const u = e.target.closest("[data-unpick]");
   if (u) { togglePick(u.dataset.unpick); return; }
   const p = e.target.closest("[data-playitem]");
-  if (p) {
-    const art = p.closest(".mine-item");
-    speakSeq([...art.querySelectorAll(".sent")].map(s => [s.dataset.full, s]));
-  }
+  if (p) { speakSeq([...p.closest(".mine-item").querySelectorAll(".sent")].map(s => [s.dataset.full, s])); return; }
+  const m = e.target.closest(".mic");
+  if (m) { record(m.closest(".sent"), m); return; }
+  const pl = e.target.closest(".play");
+  if (pl) { const a = pl.closest(".sent")._audio; if (a) { try { speechSynthesis.cancel(); } catch (x) {} a.currentTime = 0; a.play(); } }
 });
 $("#playAllMine").onclick = () => speakSeq([...document.querySelectorAll("#mineList .sent")].map(s => [s.dataset.full, s]));
 document.querySelectorAll(".seg [data-mode]").forEach(b => b.onclick = () => {
@@ -977,71 +898,97 @@ $("#toggleKo").onclick = () => {
   document.querySelectorAll(".notebook").forEach(n => n.classList.toggle("no-ko", !NB.ko));
 };
 let resizeT;
-window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (!$("#view-mine").hidden) drawAllNotebooks(); }, 120); });
+addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (!$("#view-mine").hidden) drawAllNotebooks(); }, 120); });
 
-/* ---------- role play ---------- */
-let rpItem = null;
-function renderRP(it) {
-  const pool = picked.length >= 2 ? picked.map(byId) : ITEMS;
-  rpItem = it || pick(pool.filter(x => x !== rpItem));
-  const r = rpItem;
-  const q = `How much are the ${r.en}?`, a = `They're ${priceWords(r.price)}.`;
-  $("#rp").innerHTML = `
-    <div class="rp-card">
-      <div class="role">A · 손님 (Customer)</div>
-      ${photoHTML(r)}
-      <div class="big">${esc(r.en)}</div>
-      <p class="frame"><span>How much are the <u>${esc(r.en)}</u>?</span>${sayBtn(q)}</p>
-    </div>
-    <div class="rp-card">
-      <div class="role">B · 점원 (Clerk)</div>
-      <div id="rpHidden" class="hidden-price"><button class="btn ghost" id="rpReveal" type="button">가격표 보기 (점원만!)</button></div>
-      <div id="rpShown" hidden>
-        <span class="tag big">₩${r.price.toLocaleString("en-US")}</span>
-        <p class="frame"><span>They're <u>${esc(priceWords(r.price))}</u>.</span>${sayBtn(a)}</p>
-        <p class="frame" style="font-size:15px;color:var(--muted)"><span>더 말해 보기: “${esc(r.features[0][0])}”</span>${sayBtn(r.features[0][0])}</p>
-      </div>
-    </div>`;
-  $("#rpReveal").onclick = () => { $("#rpHidden").hidden = true; $("#rpShown").hidden = false; };
+/* ---------- microphone: record my voice ---------- */
+let rec = null;            /* {mr, stream, sent, btn, timer} while recording */
+let dictation = null;      /* speech-to-text fallback inside the Claude viewer */
+if (window.claude && typeof window.claude.use === "function") {
+  window.claude.use("dictation").then(d => { if (d) { dictation = d; hookDictation(d); } }).catch(() => {});
 }
-$("#rpNext").onclick = () => renderRP();
-$("#rpSpeak").onclick = () => speakSeq([[`How much are the ${rpItem.en}?`], [`They're ${priceWords(rpItem.price)}.`]]);
-
-/* ---------- review ---------- */
-function renderReview() {
-  const rows = [];
-  KEPT.forEach(id => { const it = byId(id); rows.push(`<tr><td><span class="st keep">유지</span></td><td><b>${esc(it.en)}</b></td><td>${sayBtn(it.en)}</td><td>${esc(it.ko)}</td><td>${it.kind === "always" ? "항상 복수형으로 쓰는 말" : "두 개가 한 쌍인 물건"}</td></tr>`); });
-  REMOVED.forEach(([en, ko, why]) => rows.push(`<tr><td><span class="st out">제외</span></td><td><b>${esc(en)}</b></td><td>${sayBtn(en)}</td><td>${esc(ko)}</td><td>${esc(why)}</td></tr>`));
-  ITEMS.filter(it => !KEPT.includes(it.id)).forEach(it => rows.push(`<tr><td><span class="st new">추가</span></td><td><b>${esc(it.en)}</b></td><td>${sayBtn(it.en)}</td><td>${esc(it.ko)}</td><td>${it.kind === "always" ? "항상 복수형" : "짝(pair)"} · ${esc(it.unit)}</td></tr>`));
-  $("#reviewTable").innerHTML = `<thead><tr><th>결과</th><th>English</th><th>듣기</th><th>우리말</th><th>이유</th></tr></thead><tbody>${rows.join("")}</tbody>`;
+const norm = s => s.toLowerCase().replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
+function stopRec() {
+  if (!rec) return;
+  clearTimeout(rec.timer);
+  if (rec.mr && rec.mr.state !== "inactive") rec.mr.stop();
+  if (rec.dict) rec.dict.stop().catch(() => {});
+}
+function record(sent, btn) {
+  if (rec) { const same = rec.sent === sent; stopRec(); if (same) return; }
+  try { speechSynthesis.cancel(); } catch (e) {}
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      const chunks = [];
+      const mr = new MediaRecorder(stream);
+      mr.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+      mr.onstop = () => {
+        stream.getTracks().forEach(t => t.stop());
+        btn.classList.remove("rec"); btn.textContent = "🎤";
+        const blob = new Blob(chunks, { type: mr.mimeType || "audio/webm" });
+        if (sent._url) URL.revokeObjectURL(sent._url);
+        sent._url = URL.createObjectURL(blob); sent._audio = new Audio(sent._url);
+        sent.querySelector(".play").hidden = false;
+        rec = null;
+        toast("녹음 완료! ▶ 내 목소리를 눌러 들어 보세요.");
+      };
+      mr.start();
+      btn.classList.add("rec"); btn.textContent = "⏹";
+      rec = { mr, stream, sent, btn, timer: setTimeout(stopRec, 10000) };
+      toast("🎤 녹음 중… 문장을 말하고 ⏹을 누르세요");
+    }).catch(() => useDictation(sent, btn));
+  } else useDictation(sent, btn);
+}
+let dictT = null;          /* {sent, btn, text} for the current dictation */
+function hookDictation(d) {
+  d.onFinal(({ text: t }) => { if (dictT) dictT.text += (dictT.text ? " " : "") + t; });
+  d.onPartial(({ text: t }) => {
+    if (!dictT) return;
+    const h = dictT.sent.querySelector(".heard");
+    h.hidden = false; h.className = "heard"; h.textContent = "🎤 " + (dictT.text + " " + t).trim();
+  });
+  d.onState(({ state }) => {
+    if (!dictT) return;
+    const { sent, btn, text } = dictT;
+    if (state === "listening") { btn.classList.add("rec"); btn.textContent = "⏹"; return; }
+    if (state !== "idle") return;
+    btn.classList.remove("rec"); btn.textContent = "🎤"; rec = null; dictT = null;
+    if (!text) return;
+    const said = norm(text), goal = norm(sent.dataset.full);
+    const ok = said === goal || (goal.includes(said) && said.length > goal.length * 0.7);
+    const h = sent.querySelector(".heard");
+    h.hidden = false; h.className = "heard" + (ok ? "" : " no");
+    h.textContent = (ok ? "✅ 잘했어요! " : "🔁 다시 해 봐요: ") + "“" + text + "”";
+  });
+}
+function useDictation(sent, btn) {
+  if (!dictation) { toast("마이크를 쓸 수 없어요. 브라우저에서 마이크를 허용해 주세요."); return; }
+  dictT = { sent, btn, text: "" };
+  dictation.start().then(() => { rec = { sent, btn, dict: dictation, timer: setTimeout(stopRec, 10000) }; })
+    .catch(() => { dictT = null; toast("마이크를 쓸 수 없어요."); });
 }
 
 /* ---------- routing ---------- */
-const VIEWS = ["shop", "mine", "roleplay", "review"];
+const VIEWS = ["shop", "mine"];
 function route() {
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "shop";
   VIEWS.forEach(k => { $("#view-" + k).hidden = k !== v; });
   document.querySelectorAll("nav.tabs a").forEach(a => { if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
   if (v === "mine") drawAllNotebooks();
-  if (v === "roleplay") renderRP();
   try { speechSynthesis.cancel(); } catch (e) {}
-  clearPlaying();
+  clearPlaying(); stopRec(); wpop.hidden = true;
 }
-window.addEventListener("hashchange", route);
+addEventListener("hashchange", route);
 
-/* hero word rotates through items */
 let hi = 0;
 const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reduce) setInterval(() => { hi = (hi + 1) % ITEMS.length; $("#heroWord").textContent = ITEMS[hi].en; }, 2200);
 $("#heroSpeak").onclick = () => speak(`How much are the ${$("#heroWord").textContent}?`, $("#heroSpeak"));
 
 measureFont();
-buildFilters();
+buildStoreFilter();
 updateMineCount();
 renderGrid();
 renderMine();
-renderRP(ITEMS[0]);
-renderReview();
 route();
 if (document.fonts && document.fonts.load) {
   document.fonts.load(`400 40px Andika`).then(() => { measureFont(); drawAllNotebooks(); }).catch(() => {});
