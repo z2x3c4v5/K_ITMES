@@ -94,6 +94,52 @@ nav.tabs a[aria-current="page"] { background: var(--accent); color: var(--accent
 main .wrap { padding-block: 22px 64px; display: grid; gap: 18px; }
 section.view { display: grid; gap: 18px; }
 
+/* mall header */
+.awning.thin { height: 12px; }
+.awning.thin::after { display: none; }
+header.mall-top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6; background: var(--surface); box-shadow: 0 1px 0 var(--line); }
+header.mall-top .wrap { display: flex; align-items: center; gap: 12px; padding-block: 10px; }
+.logo { font-family: var(--f-display); font-size: 22px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.logo b { color: var(--accent); font-weight: 400; }
+.search { flex: 1; display: flex; align-items: center; gap: 8px; background: var(--surface-2); border: 2px solid transparent; border-radius: 999px; padding: 0 14px; min-width: 0; }
+.search:focus-within { border-color: var(--accent); background: var(--surface); }
+.search input { flex: 1; min-width: 0; border: none; background: transparent; font: inherit; color: var(--ink); padding: 9px 0; outline: none; }
+.cart-ico-btn { position: relative; font-size: 24px; text-decoration: none; line-height: 1; padding: 6px; }
+.cart-ico-btn .badge { position: absolute; top: -4px; right: -8px; font-size: 11px; }
+nav.tabs { top: calc(env(safe-area-inset-top, 0px) + 60px); }
+nav.tabs .ti { font-size: 16px; }
+/* banner */
+.banner { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; align-items: center; border-radius: 24px; padding: 26px 24px; background: linear-gradient(120deg, var(--accent) 0%, #FF7A59 100%); color: #fff; box-shadow: var(--shadow); }
+.banner::before { content: ""; position: absolute; inset: 0 0 auto; height: 10px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 24px, transparent 24px 48px); }
+.banner-txt { display: grid; gap: 8px; justify-items: start; }
+.banner-tag { background: var(--sun); color: var(--sun-ink); font-weight: 900; font-size: 12px; border-radius: 999px; padding: 3px 10px; }
+.banner h1 { font-size: clamp(26px, 4.6vw, 40px); color: #fff; }
+.banner h1 .blank { color: var(--sun); border-bottom-color: rgba(255,255,255,.6); }
+.banner p { margin: 0; font-size: 14px; opacity: .95; max-width: 46ch; }
+.btn.light { background: #fff; color: #C42B42; }
+.banner-pics { display: flex; justify-content: center; }
+.banner-pics img { width: 34%; max-width: 120px; aspect-ratio: 1; object-fit: cover; border-radius: 18px; background: #fff; border: 3px solid #fff; box-shadow: 0 6px 16px rgba(0,0,0,.18); margin-left: -12px; transform: rotate(-6deg); }
+.banner-pics img:nth-child(2) { transform: rotate(4deg) translateY(-8px); }
+.banner-pics img:nth-child(3) { transform: rotate(-2deg); }
+/* category icons */
+.cats { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 6px; scrollbar-width: none; }
+.cat { flex: none; width: 76px; border: none; background: transparent; display: grid; justify-items: center; gap: 4px; padding: 0; }
+.cat .ci { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; font-size: 26px; background: var(--surface); box-shadow: var(--shadow); border: 2px solid transparent; }
+.cat .cl { font-size: 12px; font-weight: 700; color: var(--muted); text-align: center; line-height: 1.3; }
+.cat[aria-pressed="true"] .ci { border-color: var(--accent); background: var(--accent-soft); }
+.cat[aria-pressed="true"] .cl { color: var(--accent); }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+.toolbar .count { margin: 0; font-size: 14px; color: var(--ink); }
+.toolbar .count b { color: var(--accent); }
+.sort select { font: inherit; font-size: 13px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.levels-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.lv-label { font-weight: 900; font-size: 14px; }
+.levels-wrap .levels { flex: 1; }
+.cart-bar .sum { display: flex; flex-direction: column; gap: 2px; }
+.sum-l { font-size: 13px; color: var(--muted); font-weight: 500; }
+.sum-r { font-size: 15px; }
+.sum-r b { font-size: 22px; color: var(--accent); }
 /* level aisles */
 .levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .lv { border: 2px solid var(--line); background: var(--surface); border-radius: 20px; padding: 14px 16px; text-align: left; display: grid; gap: 2px; box-shadow: var(--shadow); }
@@ -237,6 +283,22 @@ dialog::backdrop { background: rgba(30,10,15,.55); }
 footer { color: var(--muted); font-size: 13px; }
 
 @media (max-width: 640px) {
+  header.mall-top .wrap { flex-wrap: wrap; gap: 8px 10px; }
+  .logo { font-size: 19px; }
+  .search { order: 3; flex-basis: 100%; }
+  .cart-ico-btn { margin-left: auto; }
+  nav.tabs { position: fixed; top: auto; bottom: 0; left: 0; right: 0; box-shadow: 0 -1px 0 var(--line), 0 -6px 16px rgba(0,0,0,.06); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  nav.tabs .wrap { padding-block: 6px; }
+  nav.tabs a { flex-direction: column; gap: 0; font-size: 12px; padding: 6px 8px; border-radius: 12px; max-width: none; }
+  nav.tabs a .ti { font-size: 20px; }
+  nav.tabs a .badge { position: absolute; margin-left: 36px; margin-top: -2px; }
+  nav.tabs a { position: relative; }
+  main .wrap { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  .toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .banner { grid-template-columns: 1fr; padding: 22px 18px 18px; }
+  .banner-pics { justify-content: flex-start; padding-left: 12px; }
+  .banner-pics img { width: 84px; }
+  .lv-label { width: 100%; }
   .levels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .lv { padding: 10px; border-radius: 16px; }
   .lv .t { font-size: 17px; gap: 4px; }
@@ -261,39 +323,58 @@ footer { color: var(--muted); font-size: 13px; }
 </head>
 <body>
 
-<div class="awning" aria-hidden="true"></div>
-<header class="top">
+<div class="awning thin" aria-hidden="true"></div>
+<header class="mall-top">
   <div class="wrap">
-    <div class="sign-row">
-      <span class="shopname">🌊 부산 K-ITEMS 영어 마켓</span>
-    </div>
-    <div class="sign-row">
-      <h1>How much are the <span class="blank" id="heroWord">socks</span>?</h1>
-      <button class="speak" type="button" id="heroSpeak" aria-label="문장 듣기">🔊</button>
-    </div>
-    <p class="lede">부산에 온 외국인 관광객이 <b>올리브영 · 다이소 · 아트박스 · 서면 · 남포동 · 국제시장 · 감천문화마을</b>에서 꼭 사 가는 K-아이템 20가지예요. 물건 이름, 가격, 특징을 보고 장바구니에 담아 영어노트 문장으로 연습해요. 단어를 누르면 뜻과 발음이 나와요.</p>
+    <a class="logo" href="#shop" aria-label="부산 K-ITEMS 홈">🌊 <b>부산</b> K-ITEMS</a>
+    <label class="search">
+      <span aria-hidden="true">🔍</span>
+      <input id="q" type="search" placeholder="물건 검색 (예: socks, 마스크팩)" autocomplete="off">
+    </label>
+    <a class="cart-ico-btn" href="#mine" aria-label="장바구니">🛒<span class="badge" id="mineCountTop">0</span></a>
   </div>
 </header>
 
 <nav class="tabs" aria-label="메뉴">
   <div class="wrap">
-    <a href="#shop" data-view="shop">🏪 물건 보기</a>
-    <a href="#mine" data-view="mine">🛒 내 장바구니 <span class="badge" id="mineCount">0</span></a>
+    <a href="#shop" data-view="shop"><span class="ti">🏠</span><span>홈 · 물건 보기</span></a>
+    <a href="#mine" data-view="mine"><span class="ti">🛒</span><span>장바구니</span> <span class="badge" id="mineCount">0</span></a>
   </div>
 </nav>
 
 <main>
   <div class="wrap">
 
+    <div class="levels-wrap">
+    <span class="lv-label">📝 문장 난이도</span>
     <div class="levels" role="group" aria-label="문장 단계">
       <button class="lv" type="button" data-lv="1"><span class="t">🌱 초급</span><span class="d">짧은 특징 문장</span></button>
       <button class="lv" type="button" data-lv="2"><span class="t">🌿 중급</span><span class="d">조금 긴 특징 문장</span></button>
       <button class="lv" type="button" data-lv="3"><span class="t">🌳 고급</span><span class="d">길고 자세한 특징 문장</span></button>
     </div>
+    </div>
 
     <section class="view" id="view-shop">
-      <div class="filters" id="storeFilter" role="group" aria-label="가게"><span>어느 가게?</span></div>
-      <div class="row"><span class="count" id="count"></span></div>
+      <div class="banner">
+        <div class="banner-txt">
+          <span class="banner-tag">부산 여행 필수템 20</span>
+          <h1>How much are the <span class="blank" id="heroWord">socks</span>?</h1>
+          <p>올리브영 · 다이소 · 아트박스 · 서면 · 남포동 · 국제시장 · 감천문화마을에서 외국인 관광객이 꼭 사 가는 K-아이템을 담고, 영어로 가격·가게·특징을 말해 봐요.</p>
+          <button class="btn small light" type="button" id="heroSpeak">🔊 문장 듣기</button>
+        </div>
+        <div class="banner-pics" aria-hidden="true" id="bannerPics"></div>
+      </div>
+      <div class="cats" id="storeFilter" role="group" aria-label="가게별 보기"></div>
+      <div class="toolbar">
+        <span class="count" id="count"></span>
+        <label class="sort"><span class="sr">정렬</span>
+          <select id="sort">
+            <option value="rec">추천순</option>
+            <option value="low">낮은 가격순</option>
+            <option value="high">높은 가격순</option>
+          </select>
+        </label>
+      </div>
       <div class="grid" id="grid"></div>
       <footer>가격은 2026년 기준 대략적인 가격이에요. 매장, 브랜드, 할인 행사에 따라 달라질 수 있어요. 물건 그림은 Canva로 만든 이미지예요.</footer>
     </section>
@@ -529,10 +610,10 @@ function togglePick(id) {
   toast(on ? `🛒 ${byId(id).en} 장바구니에 담았어요!` : `${byId(id).en} 뺐어요.`);
   return on;
 }
-function updateMineCount() { $("#mineCount").textContent = picked.length; }
+function updateMineCount() { $("#mineCount").textContent = picked.length; $("#mineCountTop").textContent = picked.length; }
 
 /* ---------- shop ---------- */
-const state = { lv: 1, store: "all" };
+const state = { lv: 1, store: "all", q: "", sort: "rec" };
 try { const l = +localStorage.getItem("pps-lv"); if (l >= 1 && l <= 3) state.lv = l; } catch (e) {}
 document.querySelectorAll(".lv").forEach(b => b.onclick = () => {
   state.lv = +b.dataset.lv;
@@ -540,21 +621,27 @@ document.querySelectorAll(".lv").forEach(b => b.onclick = () => {
   renderGrid(); renderMine(); drawAllNotebooks();
   toast(`${LV_NAME[state.lv]} 문장으로 바꿨어요`);
 });
+const STORE_ICON = { all: "🌊", oliveyoung: "💄", daiso: "🏷️", artbox: "✏️", seomyeon: "🚇", nampo: "🛍️", gukje: "🏮", gamcheon: "🏘️", haeundae: "🏖️", busanstation: "🚄", cvs: "🏪" };
 function buildStoreFilter() {
   const sf = $("#storeFilter");
   ["all", ...Object.keys(STORES)].forEach(k => {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "chip"; b.dataset.store = k;
-    b.textContent = k === "all" ? "전체" : STORES[k];
+    b.type = "button"; b.className = "cat"; b.dataset.store = k;
+    b.innerHTML = `<span class="ci">${STORE_ICON[k]}</span><span class="cl">${k === "all" ? "전체" : STORES[k]}</span>`;
     sf.appendChild(b);
   });
   sf.addEventListener("click", e => { const b = e.target.closest("[data-store]"); if (b) { state.store = b.dataset.store; renderGrid(); } });
 }
 function renderGrid() {
   document.querySelectorAll(".lv").forEach(b => b.setAttribute("aria-pressed", +b.dataset.lv === state.lv));
-  document.querySelectorAll("#storeFilter .chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.store === state.store));
-  const list = ITEMS.filter(it => state.store === "all" || storesOf(it).includes(state.store));
-  $("#count").textContent = `물건 ${list.length}개 · ${LV_NAME[state.lv]} 문장 · 장바구니 ${picked.length}개`;
+  document.querySelectorAll("#storeFilter .cat").forEach(b => b.setAttribute("aria-pressed", b.dataset.store === state.store));
+  const q = state.q.trim().toLowerCase();
+  let list = ITEMS.filter(it => (state.store === "all" || storesOf(it).includes(state.store)) &&
+    (!q || it.en.toLowerCase().includes(q) || it.ko.includes(q)));
+  if (state.sort === "low") list = list.slice().sort((a, b) => a.price - b.price);
+  if (state.sort === "high") list = list.slice().sort((a, b) => b.price - a.price);
+  $("#count").innerHTML = `${state.store === "all" ? "전체" : STORES[state.store]} 상품 <b>${list.length}</b>개`;
+  if (!list.length) { $("#grid").innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="cart-ico">🔍</div><div class="big">찾는 물건이 없어요</div><p style="margin:0;color:var(--muted)">다른 단어로 검색하거나 전체 가게를 눌러 보세요.</p></div>`; return; }
   $("#grid").innerHTML = list.map(it => {
     const on = picked.includes(it.id);
     return `<article class="card">
@@ -715,7 +802,7 @@ function renderMine() {
   const box = $("#mineList");
   $("#playAllMine").disabled = !picked.length;
   const total = picked.reduce((s, id) => s + byId(id).price, 0);
-  $("#cartSum").innerHTML = picked.length ? `🛒 ${picked.length}개 · 합계 <b>${won(total)}</b> · ${LV_NAME[state.lv]} 문장` : "🛒 장바구니가 비어 있어요";
+  $("#cartSum").innerHTML = picked.length ? `<span class="sum-l">상품 ${picked.length}개 · ${LV_NAME[state.lv]} 문장</span><span class="sum-r">총 상품 금액 <b>${won(total)}</b></span>` : "🛒 장바구니가 비어 있어요";
   if (!picked.length) {
     box.innerHTML = `<div class="empty">
       <div class="cart-ico">🛒</div>
@@ -853,7 +940,12 @@ function route() {
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "shop";
   VIEWS.forEach(k => { $("#view-" + k).hidden = k !== v; });
   document.querySelectorAll("nav.tabs a").forEach(a => { if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  /* the level picker sits under the categories on the shop page and on top of the cart */
+  const lw = $(".levels-wrap");
+  if (v === "shop") $("#view-shop").insertBefore(lw, $(".toolbar")); else $("#view-mine").prepend(lw);
   if (v === "mine") drawAllNotebooks();
+  if (route.last && route.last !== v) scrollTo(0, 0);
+  route.last = v;
   try { speechSynthesis.cancel(); } catch (e) {}
   clearPlaying(); stopRec(); wpop.hidden = true;
 }
@@ -863,6 +955,9 @@ let hi = 0;
 const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reduce) setInterval(() => { hi = (hi + 1) % ITEMS.length; $("#heroWord").textContent = ITEMS[hi].en; }, 2200);
 $("#heroSpeak").onclick = () => speak(`How much are the ${$("#heroWord").textContent}?`, $("#heroSpeak"));
+$("#q").addEventListener("input", e => { state.q = e.target.value; if (location.hash === "#mine") location.hash = "#shop"; renderGrid(); });
+$("#sort").addEventListener("change", e => { state.sort = e.target.value; renderGrid(); });
+$("#bannerPics").innerHTML = ["sheet-masks", "socks", "fish-cakes"].map(id => `<img src="images/${id}.jpg" alt="" data-emoji="${byId(id).emoji}">`).join("");
 
 measureFont();
 buildStoreFilter();
